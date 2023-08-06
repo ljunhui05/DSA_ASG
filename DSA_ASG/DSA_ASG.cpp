@@ -1,20 +1,86 @@
 // DSA_ASG.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+#include <string>
 #include <iostream>
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+void printMainMenu() {
+    cout << "+----------------------------+" << endl;
+    cout << "+     Welcome to The Bear!   +" << endl;
+    cout << "+----------------------------+" << endl;
+    cout << "" << endl;
+    cout << "+----------------------------+" << endl;
+    cout << "+   Please select an option  +" << endl;
+    cout << "+   1) Register as a Member  +" << endl;
+    cout << "+   2) Login as Admin        +" << endl;
+    cout << "+   3) Login as Member       +" << endl;
+    cout << "+----------------------------+" << endl;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+void printRegisterMemberHeader(){
+    cout << "+---------------------------------+" << endl;
+    cout << "+       Register as a Member      +" << endl;
+    cout << "+  (Enter 'x' to return to menu)  +" << endl;
+    cout << "+---------------------------------+" << endl;
+}
+void printAdminLoginHeader() {
+    cout << "+---------------------------------+" << endl;
+    cout << "+         Login as Admin          +" << endl;
+    cout << "+  (Enter 'x' to return to menu)  +" << endl;
+    cout << "+---------------------------------+" << endl;
+}
+
+void printMemberLoginHeader() {
+    cout << "+---------------------------------+" << endl;
+    cout << "+        Login as Member          +" << endl;
+    cout << "+  (Enter 'x' to return to menu)  +" << endl;
+    cout << "+---------------------------------+" << endl;
+}
+
+void registerMember() {
+    string memberEmail = "";
+    string memberPassword = "";
+    cout << "Please enter an email: " << endl;
+    cin >> memberEmail;
+    if (memberEmail == "x") {
+        main();
+    }
+    cout << "Please enter a password: " << endl;
+    cin >> memberPassword;
+    if (memberPassword == "x") {
+        main();
+    }
+
+
+}
+
+int main(){
+    printMainMenu();
+    int opt = 0;
+    cin >> opt;
+
+    if (opt == 1) 
+    {
+        printRegisterMemberHeader();
+
+    }
+
+    else if (opt == 2) 
+    {
+        printAdminLoginHeader();
+    }
+
+    else if (opt == 3) 
+    {
+        printMemberLoginHeader();
+    }
+
+    else 
+    {
+        cout << "Please enter a valid input!" << endl;
+        main();
+    }
+}
+

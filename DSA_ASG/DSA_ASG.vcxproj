@@ -127,7 +127,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Admin.cpp" />
     <ClCompile Include="DSA_ASG.cpp" />
+    <ClCompile Include="Food.cpp" />
+    <ClCompile Include="HashTable.cpp" />
+    <ClCompile Include="Member.cpp" />
+    <ClCompile Include="OrderQueue.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Admin.h" />
+    <ClInclude Include="Food.h" />
+    <ClInclude Include="HashTable.h" />
+    <ClInclude Include="List.h" />
+    <ClInclude Include="Member.h" />
+    <ClInclude Include="OrderQueue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
