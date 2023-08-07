@@ -132,14 +132,18 @@
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="HashTable.cpp" />
     <ClCompile Include="Member.cpp" />
+    <ClCompile Include="Order.cpp" />
     <ClCompile Include="OrderQueue.cpp" />
+    <ClCompile Include="Dictionary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Admin.h" />
     <ClInclude Include="Food.h" />
     <ClInclude Include="HashTable.h" />
+    <ClInclude Include="Dictionary.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Member.h" />
+    <ClInclude Include="Order.h" />
     <ClInclude Include="OrderQueue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

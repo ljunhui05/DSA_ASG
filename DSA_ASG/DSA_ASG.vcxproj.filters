@@ -33,6 +33,12 @@
     <ClCompile Include="HashTable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Order.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dictionary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Member.h">
@@ -51,6 +57,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HashTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Order.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dictionary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
