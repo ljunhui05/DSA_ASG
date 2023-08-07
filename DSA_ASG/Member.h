@@ -1,7 +1,9 @@
 #pragma once
 #include <string>
 #include <iostream>
-using namespace std;
+#pragma once
+#include <iostream>
+#include <string>
 
 #include "Food.h"
 #include "List.h"
@@ -13,10 +15,11 @@ private:
 	string Username;
 	string Password;
 	int LoyaltyPoints;
-	List* FoodList;
+	List<Food>* FoodList;
 public:
 	Member();
 	Member(int MemberID, string Username, string Password);
+	string getName();
 	void CreateOrder();
 	void CancelOrder();
 	int AddLoyaltyPoint();

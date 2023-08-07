@@ -9,7 +9,7 @@ Member::Member()
 	Username = "";
 	Password = "";
 	LoyaltyPoints = 0;
-	FoodList = new List();
+	FoodList = new List<Food>();
 }
 
 Member::Member(int memberID, string name, string pass)
@@ -17,6 +17,11 @@ Member::Member(int memberID, string name, string pass)
 	MemberID = memberID;
 	Username = name;
 	Password = pass;
+}
+
+string Member::getName() 
+{
+	return Username;
 }
 
 void CreateOrder() 
@@ -31,12 +36,12 @@ void CancelOrder()
 
 int AddLoyaltyPoint() 
 {
-
+	return 0;
 }
 
 int ClaimLoyaltyPoint() 
 {
-
+	return 0;
 }
 
 void BrowseFood() 

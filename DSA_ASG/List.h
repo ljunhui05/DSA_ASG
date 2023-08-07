@@ -37,7 +37,7 @@ public:
     }
 
     bool add(int index, T item) {
-        if (index < 0  index > size)
+        if (index < 0  || index > size)
             return false;
 
         Node* newNode = new Node(item);
@@ -69,7 +69,7 @@ public:
     }
 
     T get(int index) const {
-        if (index < 0  index >= size) {
+        if (index < 0  || index >= size) {
             throw std::out_of_range("Invalid index");
         }
 

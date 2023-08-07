@@ -16,3 +16,13 @@ Food::Food(int foodID, string foodName, string category, string restaurant, int 
 	Restaurant = restaurant;
 	Quantity = quantity;
 }
+
+string Food::getName() 
+{ 
+	return FoodName;
+}
+
+void Food::printFoodDetails() 
+{
+	cout << FoodName << endl;
+}
