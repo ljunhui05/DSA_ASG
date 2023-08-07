@@ -22,6 +22,11 @@ string Food::getName()
 	return FoodName;
 }
 
+string Food::getCategory() 
+{
+	return Category;
+}
+
 void Food::printFoodDetails() 
 {
 	cout << FoodName << endl;

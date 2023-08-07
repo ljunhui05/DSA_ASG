@@ -20,6 +20,10 @@ public:
 	Food(int FoodID, string FoodName, string Category, string Restaurant, int quantity);
 
 	string getName();
+	
+	string getCategory();
+
+	string getRestaurant();
 
 	void printFoodDetails();
 };
