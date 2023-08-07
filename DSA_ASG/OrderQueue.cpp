@@ -85,7 +85,7 @@ void Queue::displayItems() {
 	Node* temp = frontNode;
 	while (temp != nullptr) {
 		Node* next = temp->next;
-		cout << temp->item.getName() << endl;
+		temp->item.displayOrderDetails();
 		temp = next;
 	}
 }

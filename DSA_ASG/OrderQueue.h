@@ -2,9 +2,10 @@
 #include<string>
 #include<iostream>
 #include "Food.h"
+#include "Order.h"
 using namespace std;
 
-typedef Food ItemType;
+typedef Order ItemType;
 
 class Queue
 {
@@ -13,6 +14,9 @@ private:
     {
         ItemType item;	// item
         Node* next;	// pointer pointing to next item
+        Node() 
+        {
+        }
     };
 
     Node* frontNode;	// point to the first item
