@@ -10,6 +10,7 @@ private:
 	string FoodName;
 	string Category;
 	string Restaurant;
+	int Price;
 	int Quantity;
 
 public:
@@ -17,7 +18,7 @@ public:
 	Food();
 
 	//Constructor
-	Food(int FoodID, string FoodName, string Category, string Restaurant, int quantity);
+	Food(int FoodID, string FoodName, string Category, string Restaurant, int Price ,int Quantity);
 
 	string getName();
 	

@@ -8,12 +8,13 @@ Food::Food()
 
 }
 
-Food::Food(int foodID, string foodName, string category, string restaurant, int quantity)
+Food::Food(int foodID, string foodName, string category, string restaurant, int price,int quantity)
 {
 	FoodID = foodID;
 	FoodName = foodName;
 	Category = category;
 	Restaurant = restaurant;
+	Price = price;
 	Quantity = quantity;
 }
 
