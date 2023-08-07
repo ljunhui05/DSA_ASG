@@ -4,7 +4,7 @@
 #include "Member.h"
 using namespace std;
 
-const int MAX_SIZE = 100;
+const int MAX_HashSIZE = 100;
 typedef string KeyType;
 typedef Member ItemType;
 
@@ -19,7 +19,7 @@ private:
 		Node* next;	// pointer pointing to next item with same search key
 	};
 
-	Node* items[MAX_SIZE];
+	Node* items[MAX_HashSIZE];
 	int  size;			// number of items in the Dictionary
 
 public:
@@ -32,7 +32,7 @@ public:
 
 	int hash(KeyType key);
 
-	bool add(KeyType newKey, ItemType newItem);
+	bool add (KeyType newKey, ItemType newItem);
 
 	void remove(KeyType key);
 

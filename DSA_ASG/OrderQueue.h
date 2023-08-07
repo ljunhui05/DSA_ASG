@@ -5,14 +5,14 @@
 #include "Order.h"
 using namespace std;
 
-typedef Order ItemType;
+typedef Order OrderItem;
 
 class Queue
 {
 private:
     struct Node
     {
-        ItemType item;	// item
+        OrderItem item;	// item
         Node* next;	// pointer pointing to next item
         Node() 
         {
@@ -30,16 +30,16 @@ public:
     ~Queue();
 
     // enqueue (add) item at the back of queue
-    bool enqueue(ItemType item);
+    bool enqueue(OrderItem item);
 
     // dequeue (remove) item from front of queue
     bool dequeue();
 
     // dequeue (remove) and retrieve item from front of queue
-    bool dequeue(ItemType& item);
+    bool dequeue(OrderItem& item);
 
     // retrieve (get) item from front of queue
-    void getFront(ItemType& item);
+    void getFront(OrderItem& item);
 
     // check if the queue is empty
     bool isEmpty();

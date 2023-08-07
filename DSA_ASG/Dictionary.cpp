@@ -7,7 +7,7 @@ using namespace std;
 
 Dictionary::Dictionary() {
 
-	for (int i = 0; i <= MAX_SIZE; i++) {
+	for (int i = 0; i <= MAX_DictSIZE; i++) {
 		items[i] = nullptr;
 	}
 	size = 0;
@@ -27,7 +27,7 @@ int Dictionary::hash(Key key) {
 	int sum = 0;
 	for (char ch : key)
 		sum += ch;
-	return sum % MAX_SIZE;
+	return sum % MAX_DictSIZE;
 }
 
 bool Dictionary::add(Key newKey, Item newItem) {
@@ -105,11 +105,11 @@ Item Dictionary::get(Key key) {
 }
 
 int Dictionary::getLength() {
-	return MAX_SIZE;
+	return MAX_DictSIZE;
 }
 
 void Dictionary::print() {
-	for (int i = 0; i < MAX_SIZE - 1; i++) {
+	for (int i = 0; i < MAX_DictSIZE - 1; i++) {
 		if (items[i] != NULL) {
 			Node* current = items[i];
 			cout << " Food: " << current->item.getName() << endl;

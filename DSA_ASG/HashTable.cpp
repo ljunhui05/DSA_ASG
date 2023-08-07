@@ -5,7 +5,7 @@ using namespace std;
 
 HashTable::HashTable() {
 
-	for (int i = 0; i <= MAX_SIZE; i++) {
+	for (int i = 0; i <= MAX_HashSIZE; i++) {
 		items[i] = nullptr;
 	}
 	size = 0;
@@ -25,7 +25,7 @@ int HashTable::hash(KeyType key) {
 	int sum = 0;
 	for (char ch : key)
 		sum += ch;
-	return sum % MAX_SIZE;
+	return sum % MAX_HashSIZE;
 }
 
 bool HashTable::add(KeyType newKey, ItemType newItem) {
@@ -103,5 +103,5 @@ ItemType HashTable::get(KeyType key) {
 }
 
 int HashTable::getLength() {
-	return MAX_SIZE;
+	return MAX_HashSIZE;
 }

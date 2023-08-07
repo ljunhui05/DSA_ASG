@@ -4,7 +4,7 @@
 #include "Food.h"
 using namespace std;
 
-const int MAX_SIZE = 100;
+const int MAX_DictSIZE = 100;
 typedef string Key;
 typedef Food Item;
 
@@ -19,7 +19,7 @@ private:
 		Node* next;	// pointer pointing to next item with same search key
 	};
 
-	Node* items[MAX_SIZE];
+	Node* items[MAX_DictSIZE];
 	int  size;			// number of items in the Dictionary
 
 public:

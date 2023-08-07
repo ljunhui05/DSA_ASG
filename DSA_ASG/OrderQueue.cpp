@@ -18,7 +18,7 @@ Queue::~Queue() {
 
 }
 
-bool Queue::enqueue(ItemType item) {
+bool Queue::enqueue(OrderItem item) {
 	struct Node* newNode = new Node;
 	newNode->item = item;
 	newNode->next = NULL;
@@ -48,7 +48,7 @@ bool Queue::dequeue() {
 	return true;
 }
 
-bool Queue::dequeue(ItemType& item) {
+bool Queue::dequeue(OrderItem& item) {
 	if (frontNode == backNode) {
 		item = frontNode->item;
 		frontNode = nullptr;
@@ -65,7 +65,7 @@ bool Queue::dequeue(ItemType& item) {
 }
 
 
-void Queue::getFront(ItemType& item) {
+void Queue::getFront(OrderItem& item) {
 	if (frontNode != nullptr) {
 		item = frontNode->item;
 	}
