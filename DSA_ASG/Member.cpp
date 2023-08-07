@@ -5,23 +5,30 @@ using namespace std;
 
 Member::Member() 
 {
-	MemberID = 0;
 	Username = "";
 	Password = "";
 	LoyaltyPoints = 0;
 	FoodList = new List<Food>();
 }
 
-Member::Member(int memberID, string name, string pass)
+Member::Member(string name, string pass, int totalMoney)
 {
-	MemberID = memberID;
 	Username = name;
 	Password = pass;
+	TotalMoney = totalMoney;
+	LoyaltyPoints = 0;
+	FoodList = new List<Food>();
 }
 
 string Member::getName() 
 {
 	return Username;
+}
+
+int Member::AddMoney(int amt) 
+{
+	TotalMoney += amt;
+	return TotalMoney;
 }
 
 void CreateOrder() 

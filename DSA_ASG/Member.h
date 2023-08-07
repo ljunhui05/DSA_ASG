@@ -11,15 +11,16 @@
 class Member 
 {
 private:
-	int MemberID;
 	string Username;
 	string Password;
+	int TotalMoney;
 	int LoyaltyPoints;
 	List<Food>* FoodList;
 public:
 	Member();
-	Member(int MemberID, string Username, string Password);
+	Member(string Username, string Password, int TotalMoney);
 	string getName();
+	int AddMoney(int amt);
 	void CreateOrder();
 	void CancelOrder();
 	int AddLoyaltyPoint();
