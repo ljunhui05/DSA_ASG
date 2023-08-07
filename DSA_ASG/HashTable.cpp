@@ -99,38 +99,9 @@ ItemType HashTable::get(KeyType key) {
 		current = current->next;
 	}
 
-	return "";
-}
-
-bool HashTable::isEmpty() {
-	Node* current = items[0];
-	int count = 0;
-	while (current != nullptr) {
-		if (current->item != "") {
-			count += 1;
-		}
-
-		current = current->next;
-	}
-
-	if (count == 0) {
-		return true;
-	}
-
-	else {
-		return false;
-	}
+	return ItemType();
 }
 
 int HashTable::getLength() {
 	return MAX_SIZE;
-}
-
-void HashTable::print() {
-	for (int i = 0; i < MAX_SIZE - 1; i++) {
-		if (items[i] != NULL) {
-			Node* current = items[i];
-			cout << "Key: " << current->key << " Item: " << current->item << endl;
-		}
-	}
 }
