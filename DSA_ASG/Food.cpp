@@ -28,6 +28,16 @@ string Food::getCategory()
 	return Category;
 }
 
+int Food::getPrice() 
+{
+	return Price;
+}
+
+int Food::getQuantity() 
+{
+	return Quantity;
+}
+
 void Food::printFoodDetails() 
 {
 	cout << FoodName << endl;

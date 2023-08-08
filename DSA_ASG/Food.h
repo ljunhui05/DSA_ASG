@@ -26,5 +26,9 @@ public:
 
 	string getRestaurant();
 
+	int getPrice();
+
+	int getQuantity();
+
 	void printFoodDetails();
 };
