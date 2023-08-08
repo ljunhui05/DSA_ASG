@@ -8,14 +8,27 @@ using namespace std;
 
 class Order
 {
+public:
+	enum class OrderStatus {
+		Pending,
+		Prepared,
+		Delivered,
+		Cancelled
+	};
+	Order();
+	~Order();
+	Order(Member MemberDetails, List<Food>* FoodList, OrderStatus newStatus);
+	void displayFood();
+	void displayOrderDetails();
+	void setStatus(OrderStatus newStatus);
+	OrderStatus getStatus() const;
+	int getOrderId() const;
+	const Member& getCustomerDetails() const;
+	static string getOrderStatusString(OrderStatus status);
+
 private:
 	Member MemberDetails;
 	List<Food>* FoodList;
-	string OrderStatus;
-public:
-	Order();
-	~Order();
-	Order(Member MemberDetails, List<Food>* FoodList);
-	void displayFood();
-	void displayOrderDetails();
+	OrderStatus status;
+	int orderId;
 };

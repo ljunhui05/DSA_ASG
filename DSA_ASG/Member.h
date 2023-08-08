@@ -18,7 +18,7 @@ private:
 public:
 	Member();
 	Member(string Username, string Password, double TotalMoney, int loyaltyPoints);
-	string getName();
+	string getName() const;
 	int AddMoney(double amt);
 	void CreateOrder();
 	void CancelOrder();
