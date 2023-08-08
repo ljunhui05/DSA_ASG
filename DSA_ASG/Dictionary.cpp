@@ -112,7 +112,9 @@ void Dictionary::print() {
 	for (int i = 0; i < MAX_DictSIZE - 1; i++) {
 		if (items[i] != NULL) {
 			Node* current = items[i];
-			cout << " Food: " << current->item.getName() << endl;
+			cout << current->item.getName();
+			cout << " Price: " << current->item.getPrice();
+			cout << " Quantity " << current->item.getQuantity();
 			cout << " Category: " << current->item.getCategory() << endl;
 		}
 	}

@@ -4,7 +4,7 @@
 #include "Food.h"
 using namespace std;
 
-const int MAX_DictSIZE = 100;
+const int MAX_DictSIZE = 50;
 typedef string Key;
 typedef Food Item;
 
