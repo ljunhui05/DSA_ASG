@@ -13,14 +13,13 @@ class Member
 private:
 	string Username;
 	string Password;
-	int TotalMoney;
+	double TotalMoney;
 	int LoyaltyPoints;
-	List<Food>* FoodList;
 public:
 	Member();
-	Member(string Username, string Password, int TotalMoney);
+	Member(string Username, string Password, double TotalMoney, int loyaltyPoints);
 	string getName();
-	int AddMoney(int amt);
+	int AddMoney(double amt);
 	void CreateOrder();
 	void CancelOrder();
 	int AddLoyaltyPoint();

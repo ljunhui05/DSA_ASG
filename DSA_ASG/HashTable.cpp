@@ -102,6 +102,21 @@ ItemType HashTable::get(KeyType key) {
 	return ItemType();
 }
 
+bool HashTable::checkExist(KeyType key) {
+	int index = hash(key);
+	Node* current = items[index];
+
+	while (current != nullptr) {
+		if (current->key == key) {
+			return true;
+		}
+
+		current = current->next;
+	}
+
+	return false;
+}
+
 int HashTable::getLength() {
 	return MAX_HashSIZE;
 }

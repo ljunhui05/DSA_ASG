@@ -38,6 +38,8 @@ public:
 
 	ItemType get(KeyType key);
 
+	bool checkExist(KeyType key);
+
 	int getLength();
 
 

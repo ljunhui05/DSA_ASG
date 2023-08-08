@@ -8,16 +8,14 @@ Member::Member()
 	Username = "";
 	Password = "";
 	LoyaltyPoints = 0;
-	FoodList = new List<Food>();
 }
 
-Member::Member(string name, string pass, int totalMoney)
+Member::Member(string name, string pass, double totalMoney, int loyaltyPoints)
 {
 	Username = name;
 	Password = pass;
 	TotalMoney = totalMoney;
-	LoyaltyPoints = 0;
-	FoodList = new List<Food>();
+	LoyaltyPoints = loyaltyPoints;
 }
 
 string Member::getName() 
@@ -25,7 +23,7 @@ string Member::getName()
 	return Username;
 }
 
-int Member::AddMoney(int amt) 
+int Member::AddMoney(double amt) 
 {
 	TotalMoney += amt;
 	return TotalMoney;
