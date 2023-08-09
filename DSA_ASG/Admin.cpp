@@ -1,12 +1,14 @@
 #include <string>
-#include <vector>
+//#include <vector>
 #include <iostream>
 using namespace std;
 #include "Admin.h"
 #include "Order.h"
 #include "Member.h"
-#include "Order.cpp"
-#include "Member.cpp"
+
+Admin::Admin() {
+
+}
 
 Admin::Admin(string adminID, string password)
 {
@@ -14,7 +16,17 @@ Admin::Admin(string adminID, string password)
 	Password = password;
 }
 
-void ViewIncomingOrders(const vector<Order>& orders, Order::OrderStatus checkStatus) {
+void Admin::ViewIncomingOrders() {
+
+}
+void Admin::UpdateOrderStatus() {
+
+}
+void Admin::ViewOrderCustoInfo() {
+
+}
+
+/*void ViewIncomingOrders(const vector<Order>& orders, Order::OrderStatus checkStatus) {
     for (const Order& order : orders) {
         if (order.getStatus() == checkStatus) {
             // Display order details (e.g., order ID, customer name, items, etc.)
@@ -45,4 +57,4 @@ void ViewOrderCustoInfo(const vector<Order>& orders, int orderId)
             return; // Exit the loop after finding the order
         }
     }
-}
+}*/
