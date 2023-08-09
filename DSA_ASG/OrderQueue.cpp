@@ -21,16 +21,17 @@ Queue::~Queue() {
 bool Queue::enqueue(OrderItem item) {
 	struct Node* newNode = new Node;
 	newNode->item = item;
-	newNode->next = NULL;
+	newNode->next = nullptr;
 
-	if (frontNode == nullptr) {
+	if (isEmpty()) {
 		frontNode = newNode;
+		newNode->next == nullptr;
 	}
 
 	else {
 		backNode->next = newNode;
+		backNode = newNode;
 	}
-	backNode = newNode;
 	return true;
 }
 
@@ -69,6 +70,21 @@ void Queue::getFront(OrderItem& item) {
 	if (frontNode != nullptr) {
 		item = frontNode->item;
 	}
+}
+
+List<Order> Queue::getMemberOrder(Member& member) {
+	List<Order> memberOrderList;
+	Node* temp = backNode;
+	while (temp != nullptr) {
+		if (temp->item.getMemberDetails().getName() == member.getName()) 
+		{
+			memberOrderList.add(temp->item);
+		}
+
+		temp = temp->next;
+	}
+
+	return memberOrderList;
 }
 
 bool Queue::isEmpty() {

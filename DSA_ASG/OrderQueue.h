@@ -41,6 +41,8 @@ public:
     // retrieve (get) item from front of queue
     void getFront(OrderItem& item);
 
+    List<Order> getMemberOrder(Member& member);
+
     // check if the queue is empty
     bool isEmpty();
 

@@ -10,12 +10,13 @@ class Order
 {
 private:
 	Member MemberDetails;
-	List<Food>* FoodList;
+	List<Food> FoodList;
 	string OrderStatus;
 public:
 	Order();
 	~Order();
-	Order(Member MemberDetails, List<Food>* FoodList);
+	Order(Member MemberDetails, List<Food> FoodList);
+	Member getMemberDetails();
 	void displayFood();
 	void displayOrderDetails();
 };
