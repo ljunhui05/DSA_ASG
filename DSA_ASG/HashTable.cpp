@@ -5,7 +5,7 @@ using namespace std;
 
 HashTable::HashTable() {
 
-	for (int i = 0; i <= MAX_HashSIZE; i++) {
+	for (int i = 0; i <= MAX_HashSIZE-1; i++) {
 		items[i] = nullptr;
 	}
 	size = 0;
@@ -102,7 +102,7 @@ ItemType HashTable::get(KeyType key) {
 	return ItemType();
 }
 
-bool HashTable::checkExist(KeyType key) {
+bool HashTable::checkMemberExist(KeyType key) {
 	int index = hash(key);
 	Node* current = items[index];
 
@@ -115,6 +115,30 @@ bool HashTable::checkExist(KeyType key) {
 	}
 
 	return false;
+}
+
+bool HashTable::checkPass(KeyType key, string pass) {
+	int index = hash(key);
+	Node* current = items[index];
+
+	while (current != nullptr) {
+		if (current->item.getPass() == pass) {
+			return true;
+		}
+
+		current = current->next;
+	}
+
+	return false;
+}
+
+void HashTable::print() {
+	for (int i = 0; i < MAX_HashSIZE - 1; i++) {
+		if (items[i] != NULL) {
+			Node* current = items[i];
+			cout << items[i]->item.getName()<< endl;
+		}
+	}
 }
 
 int HashTable::getLength() {

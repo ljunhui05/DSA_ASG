@@ -38,7 +38,11 @@ public:
 
 	ItemType get(KeyType key);
 
-	bool checkExist(KeyType key);
+	bool checkMemberExist(KeyType key);
+
+	bool checkPass(KeyType key, string pass);
+
+	void print();
 
 	int getLength();
 
