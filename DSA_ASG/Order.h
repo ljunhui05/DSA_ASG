@@ -9,30 +9,27 @@ using namespace std;
 class Order
 {
 private:
+	int OrderID;
 	Member MemberDetails;
 	List<Food> FoodList;
 	string OrderStatus;
+	int orderID;
 public:
-	enum class OrderStatus {
+	/*enum class OrderStatus {
 		Pending,
 		Prepared,
 		Delivered,
 		Cancelled
-	};
+	};*/
 	Order();
 	~Order();
-	Order(Member MemberDetails, List<Food> FoodList, OrderStatus newStatus);
+	Order(Member MemberDetails, List<Food> FoodList, int OrderQueueLen);
 	void displayFood();
 	void displayOrderDetails();
-	void setStatus(OrderStatus newStatus);
-	OrderStatus getStatus() const;
-	int getOrderId() const;
-	const Member& getCustomerDetails() const;
-	static string getOrderStatusString(OrderStatus status);
-
-private:
-	Member MemberDetails;
-	List<Food>* FoodList;
-	OrderStatus status;
-	int orderId;
+	Member getMemberDetails();
+	//void setStatus(OrderStatus newStatus);
+	//OrderStatus getStatus() const;
+	int getOrderID();
+	//const Member& getCustomerDetails() const;
+	//static string getOrderStatusString(OrderStatus status);
 };

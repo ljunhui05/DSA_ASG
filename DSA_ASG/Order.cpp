@@ -4,7 +4,10 @@
 #include "Order.h"
 using namespace std;
 
+Order::Order() 
+{
 
+}
 
 Order::~Order() 
 {
@@ -14,11 +17,13 @@ Order::~Order()
 	//}
 }
 
-Order::Order(Member memberDetails, List<Food> foodList, OrderStatus newStatus)
+Order::Order(Member memberDetails, List<Food> foodList , int orderQueueLen)
 {
+	OrderID = memberDetails.getNameLength() + orderQueueLen;
 	MemberDetails = memberDetails;
 	FoodList = foodList;
-	setStatus(newStatus);
+	OrderStatus = "Unprepared";
+//	setStatus(newStatus);
 }
 
 Member Order::getMemberDetails() {
@@ -36,9 +41,8 @@ void Order::displayFood()
 
 void Order::displayOrderDetails()
 {
-	cout << MemberDetails.getName()<< endl;
-	cout << FoodList->getLength() << endl;
-	string statusStr;
+	displayFood();
+/*	string statusStr;
 	switch (status) {
 	case OrderStatus::Pending:
 		statusStr = "Pending";
@@ -53,10 +57,10 @@ void Order::displayOrderDetails()
 		statusStr = "Cancelled";
 		break;
 	}
-	cout << statusStr << endl;
+	cout << statusStr << endl;*/
 }
 
-Order::OrderStatus Order::getStatus() const
+/*Order::OrderStatus Order::getStatus() const
 {
 	return status; // Return the current order status
 }
@@ -64,14 +68,14 @@ Order::OrderStatus Order::getStatus() const
 void Order::setStatus(OrderStatus newStatus)
 {
 	status = newStatus; // Set the new order status
-}
+}*/
 
-int Order::getOrderId() const
+int Order::getOrderID()
 {
-	return orderId; // Return the order ID
+	return OrderID; // Return the order ID
 }
 
-const Member& Order::getCustomerDetails() const
+/*const Member& Order::getCustomerDetails() const
 {
 	return MemberDetails; // Return the Member object representing customer details
 }
@@ -92,4 +96,4 @@ string Order::getOrderStatusString(OrderStatus status)
 	}
 	cout << "Items Ordered: " << FoodList.getLength();
 	cout << " Order Status: " << OrderStatus << endl;
-}
+}*/
