@@ -25,13 +25,14 @@ bool Queue::enqueue(OrderItem item) {
 
 	if (isEmpty()) {
 		frontNode = newNode;
-		newNode->next == nullptr;
+		newNode->next = nullptr;
 	}
 
 	else {
 		backNode->next = newNode;
-		backNode = newNode;
+		
 	}
+	backNode = newNode;
 	return true;
 }
 
@@ -72,7 +73,7 @@ void Queue::getFront(OrderItem& item) {
 	}
 }
 
-List<Order> Queue::getMemberOrder(Member& member) {
+List<Order> Queue::getMemberOrder(Member member) {
 	List<Order> memberOrderList;
 	Node* temp = backNode;
 	while (temp != nullptr) {
@@ -95,6 +96,18 @@ bool Queue::isEmpty() {
 	else {
 		return false;
 	}
+}
+
+int Queue::getLength() {
+	int len = 0;
+	Node* temp = backNode;
+	while (temp != nullptr) {
+		Node* next = temp->next;
+		len += 1;
+		temp = next;
+	}
+
+	return len;
 }
 
 void Queue::displayItems() {
