@@ -50,6 +50,6 @@ int Food::getQuantity()
 
 void Food::printFoodDetails() 
 {
-	cout << "Food:" << FoodName << endl;
-	cout << "Quantity:" << Quantity << endl;
+	cout << "Food:" << FoodName;
+	cout << " Quantity:" << Quantity << endl;
 }

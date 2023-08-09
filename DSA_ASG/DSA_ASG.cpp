@@ -119,9 +119,9 @@ void makeOrder()
             cout << "Enter a valid option!" << endl;
         }
     }
+    
 
-
-    Order newOrder(loggedInMember, orderFoodList);
+    Order newOrder(loggedInMember, orderFoodList, orderQueue.getLength());
 
     orderQueue.enqueue(newOrder);
 
@@ -132,12 +132,15 @@ void makeOrder()
 }
 
 void printOrder(Order& order) {
+    cout << "+----------------------------+" << endl;
+    cout << "OrderID: " << order.getOrderID() << endl;
     order.displayOrderDetails();
+    cout << "+----------------------------+" << endl;
 }
 
 void cancelOrder() 
 {
-    List<Order> memberOrders;
+    List<Order> memberOrderList;
     cout << "+----------------------------+" << endl;
     cout << "+        Cancel Order        +" << endl;
     cout << "+----------------------------+" << endl;
@@ -145,15 +148,15 @@ void cancelOrder()
     cout << "+----------------------------+" << endl;
     cout << "+        Your Orders         +" << endl;
     cout << "+----------------------------+" << endl;
+    
+    memberOrderList = orderQueue.getMemberOrder(loggedInMember);
 
-    memberOrders = orderQueue.getMemberOrder(loggedInMember);
-
-    if (memberOrders.getLength() == 0) {
+    if (memberOrderList.getLength() == 0) {
         cout << "You do not currently have any orders" << endl;
     }
 
     else {
-        memberOrders.traverse(printOrder);
+        memberOrderList.traverse(printOrder);
     }
 
 
@@ -176,7 +179,7 @@ void memberMainMenu() {
 
     int memberMainOpt = 0;
 
-while (memberMainOpt != 4)
+    while (memberMainOpt != 4)
     {
         cout << "Please select an option" << endl;
         cin >> memberMainOpt;
