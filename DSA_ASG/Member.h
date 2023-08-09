@@ -1,10 +1,6 @@
 #pragma once
 #include <string>
 #include <iostream>
-#pragma once
-#include <iostream>
-#include <string>
-
 #include "Food.h"
 #include "List.h"
 
@@ -18,11 +14,10 @@ private:
 public:
 	Member();
 	Member(string Username, string Password, double TotalMoney, int loyaltyPoints);
-	string getName();
+	string getName(); 
+	int getNameLength();
 	string getPass();
-	int AddMoney(double amt);
-	void CreateOrder();
-	void CancelOrder();
+	double AddMoney(double amt);
 	int AddLoyaltyPoint();
 	int ClaimLoyaltyPoint();
 	void BrowseFood();

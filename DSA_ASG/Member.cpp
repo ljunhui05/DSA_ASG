@@ -18,43 +18,39 @@ Member::Member(string name, string pass, double totalMoney, int loyaltyPoints)
 	LoyaltyPoints = loyaltyPoints;
 }
 
-string Member::getName() const
+string Member::getName()
 {
 	return Username;
 }
+
+int Member::getNameLength() {
+	return Username.size();
+}
+
+
 
 string Member::getPass() 
 {
 	return Password;
 }
 
-int Member::AddMoney(double amt) 
+double Member::AddMoney(double amt) 
 {
 	TotalMoney += amt;
 	return TotalMoney;
 }
 
-void CreateOrder() 
-{
-
-}
-
-void CancelOrder() 
-{
-
-}
-
-int AddLoyaltyPoint() 
+int Member::AddLoyaltyPoint()
 {
 	return 0;
 }
 
-int ClaimLoyaltyPoint() 
+int Member::ClaimLoyaltyPoint()
 {
 	return 0;
 }
 
-void BrowseFood() 
+void Member::BrowseFood()
 {
 
 }
