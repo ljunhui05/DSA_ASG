@@ -20,6 +20,8 @@ public:
 	//Constructor
 	Food(int FoodID, string FoodName, string Category, string Restaurant, int Price ,int Quantity);
 
+	int getID();
+
 	string getName();
 	
 	string getCategory();

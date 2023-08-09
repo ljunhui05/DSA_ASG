@@ -18,6 +18,11 @@ Food::Food(int foodID, string foodName, string category, string restaurant, int 
 	Quantity = quantity;
 }
 
+int Food::getID() 
+{
+	return FoodID;
+}
+
 string Food::getName() 
 { 
 	return FoodName;
@@ -26,6 +31,11 @@ string Food::getName()
 string Food::getCategory() 
 {
 	return Category;
+}
+
+string Food::getRestaurant() 
+{
+	return Restaurant;
 }
 
 int Food::getPrice() 
@@ -40,5 +50,6 @@ int Food::getQuantity()
 
 void Food::printFoodDetails() 
 {
-	cout << FoodName << endl;
+	cout << "Food:" << FoodName << endl;
+	cout << "Quantity:" << Quantity << endl;
 }
