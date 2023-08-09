@@ -18,7 +18,7 @@ Member::Member(string name, string pass, double totalMoney, int loyaltyPoints)
 	LoyaltyPoints = loyaltyPoints;
 }
 
-string Member::getName() 
+string Member::getName() const
 {
 	return Username;
 }
