@@ -55,36 +55,115 @@ void initData()
     Food Food1(1, "Pizza", "Western", "Bishan", 12, 10);
     Food Food2(2, "Hot Dogs", "Western", "Bishan", 5, 50);
     Food Food3(3, "Carbonara", "Western", "Bishan", 7, 25);
-    Food Food4(6, "Prawn Noodles", "Chinese", "Bishan", 7, 25);
-    Food Food5(7, "Dim Sum", "Chinese", "Bishan", 8, 30);
+    Food Food4(4, "Prawn Noodles", "Chinese", "Bishan", 7, 25);
+    Food Food5(5, "Dim Sum", "Chinese", "Bishan", 8, 30);
 
-    foodMenu.add("PizzaBishan", Food1);
-    foodMenu.add("HotDogsBishan", Food2);
-    foodMenu.add("CarbonaraBishan", Food3);
-    foodMenu.add("PrawnNoodles", Food4);
-    foodMenu.add("DimSum", Food5);
+    foodMenu.add(1, Food1);
+    foodMenu.add(2, Food2);
+    foodMenu.add(3, Food3);
+    foodMenu.add(4, Food4);
+    foodMenu.add(5, Food5);
 
-    Food Food6(1, "Pizza", "Western", "Punggol", 12, 10);
-    Food Food7(2, "Hot Dogs", "Western", "Punggol", 5, 50);
-    Food Food8(3, "Carbonara", "Western", "Punggol", 7, 25);
-    Food Food9(4, "Hamburger", "Western", "Punggol", 8, 30);
-    Food Food10(5, "Creme Brulee", "Western", "Punggol", 11, 15);
+    Food Food6(6, "Pizza", "Western", "Punggol", 12, 10);
+    Food Food7(7, "Hot Dogs", "Western", "Punggol", 5, 50);
+    Food Food8(8, "Carbonara", "Western", "Punggol", 7, 25);
+    Food Food9(9, "Hamburger", "Western", "Punggol", 8, 30);
+    Food Food10(10, "Creme Brulee", "Western", "Punggol", 11, 15);
 
-    foodMenu.add("PizzaPunggol", Food6);
-    foodMenu.add("HotDogsPunggol", Food7);
-    foodMenu.add("CarbonaraPunggol", Food8);
-    foodMenu.add("Hamburger", Food9);
-    foodMenu.add("CremeBrulee", Food10);
+    foodMenu.add(6, Food6);
+    foodMenu.add(7, Food7);
+    foodMenu.add(8, Food8);
+    foodMenu.add(9, Food9);
+    foodMenu.add(10, Food10);
 }
 
-void printFoodMenu()
+void makeOrder() 
 {
-    foodMenu.print();
+    int makeOrderOpt = -1;
+    int quantityOpt = 0;
+    bool confirm = true;
+    List<Food> orderFoodList;
+    cout << "+----------------------------+" << endl;
+    cout << "+         Make Order         +" << endl;
+    cout << "+----------------------------+" << endl;
+
+    while (confirm == true) 
+    {
+        foodMenu.print();
+        cout << "+----------------------------+" << endl;
+        cout << "Enter 0 to confirm your order" << endl;
+        cout << "" << endl;
+        cout << "Please select an option:" << endl;
+        cin >> makeOrderOpt;
+        if (foodMenu.checkFoodExist(makeOrderOpt) == true)
+        {
+            cout << "What is the quantity you want?" << endl;
+            cin >> quantityOpt;
+
+            Food newFood(foodMenu.get(makeOrderOpt).getID(), foodMenu.get(makeOrderOpt).getName(),
+                foodMenu.get(makeOrderOpt).getCategory(), foodMenu.get(makeOrderOpt).getRestaurant(),
+                foodMenu.get(makeOrderOpt).getPrice(), quantityOpt);
+
+            orderFoodList.add(newFood);
+
+
+        }
+
+        else if (makeOrderOpt == 0)
+        {
+            confirm = false;
+        }
+
+        else 
+        {
+            cout << "Enter a valid option!" << endl;
+        }
+    }
+
+
+    Order newOrder(loggedInMember, orderFoodList);
+
+    orderQueue.enqueue(newOrder);
+
+    orderQueue.displayItems();
+
+    cout << "Order Confirmed Successfully!" << endl;
+
+}
+
+void printOrder(Order& order) {
+    order.displayOrderDetails();
+}
+
+void cancelOrder() 
+{
+    List<Order> memberOrders;
+    cout << "+----------------------------+" << endl;
+    cout << "+        Cancel Order        +" << endl;
+    cout << "+----------------------------+" << endl;
+    cout << "" << endl;
+    cout << "+----------------------------+" << endl;
+    cout << "+        Your Orders         +" << endl;
+    cout << "+----------------------------+" << endl;
+
+    memberOrders = orderQueue.getMemberOrder(loggedInMember);
+
+    if (memberOrders.getLength() == 0) {
+        cout << "You do not currently have any orders" << endl;
+    }
+
+    else {
+        memberOrders.traverse(printOrder);
+    }
+
+
+
 }
 
 void memberMainMenu() {
 
     cout << "+----------------------------+" << endl;
+    cout << "         Hello " << loggedInMember.getName() << endl;
     cout << "+    How may we serve you?   +" << endl;
     cout << "+----------------------------+" << endl;
     cout << "" << endl;
@@ -95,25 +174,34 @@ void memberMainMenu() {
     cout << "+    [4] Exit                +" << endl;
     cout << "+----------------------------+" << endl;
 
-    int opt = 0;
-    while (opt != 4)
+    int memberMainOpt = 0;
+
+while (memberMainOpt != 4)
     {
         cout << "Please select an option" << endl;
-        cin >> opt;
+        cin >> memberMainOpt;
 
-        if (opt == 1)
+        if (memberMainOpt == 1)
         {
-            printFoodMenu();
+            makeOrder();
+            memberMainMenu();
         }
 
-        else if (opt == 2)
+        else if (memberMainOpt == 2)
+        {
+            cancelOrder();
+            memberMainMenu();
+        }
+
+        else if (memberMainOpt == 3)
         {
 
         }
 
-        else if (opt == 3)
+        else if (memberMainOpt == 4)
         {
-
+            cout << "Goodbye! It was a pleasure serving you!" << endl;
+            exit(0);
         }
 
         else
@@ -122,7 +210,7 @@ void memberMainMenu() {
         }
     }
 
-    cout << "Goodbye! It was a pleasure serving you!" << endl;
+    
 
 
 }
@@ -150,21 +238,15 @@ void registerMember() {
     cin >> memberPassword;
 
     cout << "Please enter how much money you would like to add to your account:" << endl;
-
-    try
-    {
-        cin >> memberMoney;
-    }
-    catch (const std::exception&)
-    {
-        cout << "Invalid Amount!" << endl;
-    }
-
-
+    cin >> memberMoney;
 
     Member newMember(memberUsername, memberPassword, memberMoney, 0);
 
     memberHashTable.add(newMember.getName(), newMember);
+
+    loggedInMember = memberHashTable.get(memberUsername);
+
+    memberMainMenu();
 }
 
 void memberLogin() {
@@ -181,7 +263,7 @@ void memberLogin() {
     cout << "Please enter your password: " << endl;
     cin >> memberPassword;
 
-    if (memberHashTable.checkExist(memberUsername) == true)
+    if (memberHashTable.checkMemberExist(memberUsername) && memberHashTable.checkPass(memberUsername, memberPassword) == true)
     {
         loggedInMember = memberHashTable.get(memberUsername);
         cout << "Successful Login!" << endl;
@@ -190,20 +272,24 @@ void memberLogin() {
 
     else
     {
-        string loginOpt = "";
+        int loginOpt = 3;
         cout << "Invalid Login Credentials!" << endl;
         cout << "Don't have an account?" << endl;
-        cout << "Enter 1 to register an account. Enter anything to return to the Login menu." << endl;
+        cout << "Enter 1 to register an account. Enter 0 to return to the Login menu." << endl;
         cin >> loginOpt;
 
-        if (loginOpt == "1")
+        if (loginOpt == 1)
         {
             registerMember();
         }
 
-        else
+        else if(loginOpt == 0)
         {
             memberLogin();
+        }
+
+        else {
+            cout << "Invalid input!" << endl;
         }
     }
 
@@ -222,24 +308,30 @@ void mainMenu() {
     cout << "+   [4] Exit                 +" << endl;
     cout << "+----------------------------+" << endl;
 
-    int opt = 0;
-    cin >> opt;
+    int mainOpt = 0;
+    cin >> mainOpt;
 
-    while (opt != 4) 
+    while (mainOpt != 4)
     {
-        if (opt == 1)
+        if (mainOpt == 1)
         {
             registerMember();
         }
 
-        else if (opt == 2)
+        else if (mainOpt == 2)
         {
             printAdminLoginHeader();
         }
 
-        else if (opt == 3)
+        else if (mainOpt == 3)
         {
             memberLogin();
+        }
+
+        else if (mainOpt == 4)
+        {
+            cout << "Goodbye! It was a pleasure serving you!" << endl;
+            exit(0);
         }
 
         else
@@ -249,13 +341,10 @@ void mainMenu() {
         }
     }
 
-    cout << "Goodbye! It was a pleasure serving you!" << endl;
-
 }
 
 int main(){
     initData();
-    //mainMenu();
-    registerMember();
+    mainMenu();
 }
 
