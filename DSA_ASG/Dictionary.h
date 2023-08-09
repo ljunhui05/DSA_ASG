@@ -5,7 +5,7 @@
 using namespace std;
 
 const int MAX_DictSIZE = 50;
-typedef string Key;
+typedef int Key;
 typedef Food Item;
 
 
@@ -37,6 +37,8 @@ public:
 	void remove(Key key);
 
 	Item get(Key key);
+
+	bool checkFoodExist(Key key);
 
 	int getLength();
 

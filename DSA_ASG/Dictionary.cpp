@@ -7,7 +7,7 @@ using namespace std;
 
 Dictionary::Dictionary() {
 
-	for (int i = 0; i <= MAX_DictSIZE; i++) {
+	for (int i = 0; i <= MAX_DictSIZE-1; i++) {
 		items[i] = nullptr;
 	}
 	size = 0;
@@ -23,25 +23,18 @@ Dictionary::~Dictionary() {
 	}
 }
 
-int Dictionary::hash(Key key) {
-	int sum = 0;
-	for (char ch : key)
-		sum += ch;
-	return sum % MAX_DictSIZE;
-}
 
 bool Dictionary::add(Key newKey, Item newItem) {
-	int index = hash(newKey);
-	if (items[index] == nullptr) {
+	if (items[newKey] == nullptr) {
 		Node* newNode = new Node;
 		newNode->key = newKey;
 		newNode->item = newItem;
 		newNode->next = nullptr;
-		items[index] = newNode;
+		items[newKey] = newNode;
 	}
 
 	else { //collision occurred
-		Node* current = items[index];
+		Node* current = items[newKey];
 		if (current->key == newKey) {
 			return false;
 		}
@@ -66,8 +59,7 @@ bool Dictionary::add(Key newKey, Item newItem) {
 
 void Dictionary::remove(Key key)
 {
-	int index = hash(key);
-	Node* current = items[index];
+	Node* current = items[key];
 	Node* previous = nullptr;
 
 	while (current != nullptr)
@@ -75,7 +67,7 @@ void Dictionary::remove(Key key)
 		if (current->key == key)
 		{
 			if (previous == nullptr)
-				items[index] = current->next;
+				items[key] = current->next;
 			else
 				previous->next = current->next;
 
@@ -90,8 +82,7 @@ void Dictionary::remove(Key key)
 }
 
 Item Dictionary::get(Key key) {
-	int index = hash(key);
-	Node* current = items[index];
+	Node* current = items[key];
 
 	while (current != nullptr) {
 		if (current->key == key) {
@@ -104,6 +95,20 @@ Item Dictionary::get(Key key) {
 	return Item();
 }
 
+bool Dictionary::checkFoodExist(Key key) {
+	Node* current = items[key];
+
+	while (current != nullptr) {
+		if (current->key == key) {
+			return true;
+		}
+
+		current = current->next;
+	}
+
+	return false;
+}
+
 int Dictionary::getLength() {
 	return MAX_DictSIZE;
 }
@@ -113,6 +118,7 @@ void Dictionary::print() {
 		if (items[i] != NULL) {
 			Node* current = items[i];
 			cout << current->item.getName();
+			cout << "[" << current->item.getID() << "]" << endl;
 			cout << " Price: " << current->item.getPrice();
 			cout << " Quantity " << current->item.getQuantity();
 			cout << " Category: " << current->item.getCategory() << endl;
