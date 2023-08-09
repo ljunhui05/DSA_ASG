@@ -19,6 +19,7 @@ public:
 	Member();
 	Member(string Username, string Password, double TotalMoney, int loyaltyPoints);
 	string getName();
+	string getPass();
 	int AddMoney(double amt);
 	void CreateOrder();
 	void CancelOrder();

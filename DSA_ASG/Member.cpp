@@ -23,6 +23,11 @@ string Member::getName()
 	return Username;
 }
 
+string Member::getPass() 
+{
+	return Password;
+}
+
 int Member::AddMoney(double amt) 
 {
 	TotalMoney += amt;
