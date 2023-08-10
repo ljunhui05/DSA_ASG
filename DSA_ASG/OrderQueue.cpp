@@ -108,14 +108,3 @@ int Queue::getLength() {
 
 	return len;
 }
-
-void Queue::displayItems(int OrderID) {
-	Node* temp = frontNode;
-	while (temp != nullptr) {
-		Node* next = temp->next;
-		if (temp->item.getOrderID() == OrderID) {
-			temp->item.displayOrderDetails();
-		}
-		temp = next;
-	}
-}

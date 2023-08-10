@@ -31,18 +31,17 @@ Member Order::getMemberDetails() {
 	return MemberDetails;
 }
 
-void Order::displayFood() 
-{
-	for (int i = 0; i < FoodList.getLength(); i++) 
-	{
-		Food Food = FoodList.get(i);
-		Food.printFoodDetails();
-	}
-}
 
 void Order::displayOrderDetails()
 {
-	displayFood();
+	std::cout << "+---------Your Order---------+ " << endl;
+	for (int i = 0; i < FoodList.getLength(); i++)
+	{
+
+		Food Food = FoodList.get(i);
+		Food.printFoodDetails();
+	}
+	std::cout << "+----------------------------+ " << endl;
 /*	string statusStr;
 	switch (status) {
 	case OrderStatus::Pending:

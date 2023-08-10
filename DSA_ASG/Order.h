@@ -24,7 +24,6 @@ public:
 	Order();
 	~Order();
 	Order(Member MemberDetails, List<Food> FoodList, int OrderQueueLen, double OrderTotal);
-	void displayFood();
 	void displayOrderDetails();
 	Member getMemberDetails();
 	//void setStatus(OrderStatus newStatus);

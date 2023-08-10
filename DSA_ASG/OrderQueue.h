@@ -47,7 +47,4 @@ public:
     bool isEmpty();
 
     int getLength();
-
-    // display items in queue from front to back
-    void displayItems(int OrderID);
 };
