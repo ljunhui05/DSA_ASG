@@ -34,6 +34,11 @@ string Member::getPass()
 	return Password;
 }
 
+double Member::getMoney() 
+{
+	return TotalMoney;
+}
+
 double Member::AddMoney(double amt) 
 {
 	TotalMoney += amt;

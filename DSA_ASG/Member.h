@@ -17,6 +17,7 @@ public:
 	string getName(); 
 	int getNameLength();
 	string getPass();
+	double getMoney();
 	double AddMoney(double amt);
 	int AddLoyaltyPoint();
 	int ClaimLoyaltyPoint();
