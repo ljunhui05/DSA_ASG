@@ -3,7 +3,6 @@
 #include <iostream>
 #include "Food.h"
 #include "List.h"
-#include "HashTable.h";
 
 class Member 
 {

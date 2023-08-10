@@ -45,7 +45,7 @@ void initCustomer() {
 
 }
 
-void updateCustomer(Member loggedInMember) 
+void updateCustomer(Member loggedInMember)
 {
     ifstream inputFile("Members.csv");
     if (!inputFile) {
