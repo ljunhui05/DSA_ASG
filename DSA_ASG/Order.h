@@ -13,6 +13,7 @@ private:
 	Member MemberDetails;
 	List<Food> FoodList;
 	string OrderStatus;
+	double OrderTotal;
 public:
 	/*enum class OrderStatus {
 		Pending,
@@ -22,7 +23,7 @@ public:
 	};*/
 	Order();
 	~Order();
-	Order(Member MemberDetails, List<Food> FoodList, int OrderQueueLen);
+	Order(Member MemberDetails, List<Food> FoodList, int OrderQueueLen, double OrderTotal);
 	void displayFood();
 	void displayOrderDetails();
 	Member getMemberDetails();

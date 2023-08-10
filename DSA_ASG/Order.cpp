@@ -17,12 +17,13 @@ Order::~Order()
 	//}
 }
 
-Order::Order(Member memberDetails, List<Food> foodList , int orderQueueLen)
+Order::Order(Member memberDetails, List<Food> foodList , int orderQueueLen, double orderTotal)
 {
 	OrderID = memberDetails.getNameLength() + orderQueueLen;
 	MemberDetails = memberDetails;
 	FoodList = foodList;
 	OrderStatus = "Unprepared";
+	OrderTotal = orderTotal;
 //	setStatus(newStatus);
 }
 
