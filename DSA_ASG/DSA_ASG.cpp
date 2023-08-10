@@ -125,7 +125,7 @@ void makeOrder()
 
     orderQueue.enqueue(newOrder);
 
-    orderQueue.displayItems();
+    orderQueue.displayItems(newOrder.getOrderID());
 
     cout << "Order Confirmed Successfully!" << endl;
 
@@ -140,7 +140,9 @@ void printOrder(Order& order) {
 
 void cancelOrder() 
 {
+    int cancelOrderOpt;
     List<Order> memberOrderList;
+    List<Order> orderList;
     cout << "+----------------------------+" << endl;
     cout << "+        Cancel Order        +" << endl;
     cout << "+----------------------------+" << endl;
@@ -148,6 +150,7 @@ void cancelOrder()
     cout << "+----------------------------+" << endl;
     cout << "+        Your Orders         +" << endl;
     cout << "+----------------------------+" << endl;
+
     
     memberOrderList = orderQueue.getMemberOrder(loggedInMember);
 
@@ -156,7 +159,38 @@ void cancelOrder()
     }
 
     else {
-        memberOrderList.traverse(printOrder);
+        
+        for (int i = 0; i < memberOrderList.getLength(); i++) 
+        {
+            cout << "+----------------------------+" << endl;
+            cout << "OrderID: " << memberOrderList.get(i).getOrderID() << endl;
+            memberOrderList.get(i).displayOrderDetails();
+            cout << "+----------------------------+" << endl;
+        }
+        cout << "Please select enter the OrderID of the order you would like to cancel: " << endl;
+        cin >> cancelOrderOpt;
+        for (int j = 0; j < orderQueue.getLength(); j++)  
+        {
+            Order orders;
+            orderQueue.dequeue(orders);
+            orderList.add(orders);
+        }
+
+        for (int k = 0; k < orderList.getLength(); k++)
+        {
+            if (orderList.get(k).getOrderID() == cancelOrderOpt)
+            {
+                orderList.remove(k);
+            }
+        }
+
+        for (int l = 0; l < orderList.getLength(); l++) 
+        {
+            orderQueue.enqueue(orderList.get(l));
+        }
+
+        cout << "Order cancelled successfully!" << endl;
+        
     }
 
 
@@ -231,8 +265,8 @@ void registerMember() {
     cout << "+       Register as a Member      +" << endl;
     cout << "+---------------------------------+" << endl;
     cout << "" << endl;
-    string memberUsername = "";
-    string memberPassword = "";
+    string memberUsername;
+    string memberPassword;
     double memberMoney = 0;
     cout << "Please enter a username: " << endl;
     cin >> memberUsername;
@@ -248,6 +282,17 @@ void registerMember() {
     memberHashTable.add(newMember.getName(), newMember);
 
     loggedInMember = memberHashTable.get(memberUsername);
+
+    ofstream file("Members.csv", std::ios::app); // Open file in append mode
+
+    if (!file.is_open()) {
+        std::cerr << "Error opening file: Customer.csv" << std::endl;
+    }
+
+    file << memberUsername << "," << memberPassword << ","
+        << memberMoney << "," << "0" << endl;
+
+    file.close();
 
     memberMainMenu();
 }

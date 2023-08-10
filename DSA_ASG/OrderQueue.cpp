@@ -25,7 +25,6 @@ bool Queue::enqueue(OrderItem item) {
 
 	if (isEmpty()) {
 		frontNode = newNode;
-		newNode->next = nullptr;
 	}
 
 	else {
@@ -75,7 +74,7 @@ void Queue::getFront(OrderItem& item) {
 
 List<Order> Queue::getMemberOrder(Member member) {
 	List<Order> memberOrderList;
-	Node* temp = backNode;
+	Node* temp = frontNode;
 	while (temp != nullptr) {
 		if (temp->item.getMemberDetails().getName() == member.getName()) 
 		{
@@ -110,11 +109,13 @@ int Queue::getLength() {
 	return len;
 }
 
-void Queue::displayItems() {
+void Queue::displayItems(int OrderID) {
 	Node* temp = frontNode;
 	while (temp != nullptr) {
 		Node* next = temp->next;
-		temp->item.displayOrderDetails();
+		if (temp->item.getOrderID() == OrderID) {
+			temp->item.displayOrderDetails();
+		}
 		temp = next;
 	}
 }

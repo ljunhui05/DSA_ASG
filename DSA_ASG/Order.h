@@ -13,7 +13,6 @@ private:
 	Member MemberDetails;
 	List<Food> FoodList;
 	string OrderStatus;
-	int orderID;
 public:
 	/*enum class OrderStatus {
 		Pending,
