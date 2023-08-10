@@ -3,6 +3,7 @@
 using namespace std;
 #include "Member.h";
 
+
 Member::Member() 
 {
 	Username = "";
@@ -10,12 +11,18 @@ Member::Member()
 	LoyaltyPoints = 0;
 }
 
-Member::Member(string name, string pass, double totalMoney, int loyaltyPoints)
+Member::Member(int memberID, string name, string pass, double totalMoney, int loyaltyPoints)
 {
+	MemberID = memberID;
 	Username = name;
 	Password = pass;
 	TotalMoney = totalMoney;
 	LoyaltyPoints = loyaltyPoints;
+}
+
+int Member::getID() 
+{
+	return MemberID;
 }
 
 string Member::getName()
@@ -39,23 +46,30 @@ double Member::getMoney()
 	return TotalMoney;
 }
 
+int Member::getPoints() 
+{
+	return LoyaltyPoints;
+}
+
 double Member::AddMoney(double amt) 
 {
 	TotalMoney += amt;
 	return TotalMoney;
 }
 
-int Member::AddLoyaltyPoint()
-{
-	return 0;
+double Member::DeductMoney(double cost) {
+	TotalMoney -= cost;
+	return TotalMoney;
 }
 
-int Member::ClaimLoyaltyPoint()
+int Member::AddLoyaltyPoint(double orderCost)
 {
-	return 0;
+	int loyaltyPointsEarned = orderCost / 3;
+	LoyaltyPoints += loyaltyPointsEarned;
+	return loyaltyPointsEarned;
 }
 
-void Member::BrowseFood()
+void Member::ClaimLoyaltyPoint(int claimedPoints)
 {
-
+	LoyaltyPoints -= claimedPoints;
 }
