@@ -5,6 +5,7 @@
 #include<fstream>
 #include<sstream>
 #include <iomanip>
+#include <vector>
 using namespace std;
 
 #include "Admin.h";
@@ -35,13 +36,51 @@ void initCustomer() {
 
     while (getline(inFile, line)) {
         istringstream iss(line);
-        string name, password, money, points;
-        if (getline(iss, name, ',') && getline(iss, password, ',') && getline(iss, money, ',') && getline(iss, points)) {
-            Member member (name, password, stod(money), stoi(points));
+        string ID, name, password, money, points;
+        if (getline(iss, ID, ',') && getline(iss, name, ',') && getline(iss, password, ',') && getline(iss, money, ',') && getline(iss, points)) {
+            Member member (stoi(ID), name, password, stod(money), stoi(points));
             memberHashTable.add(name, member);
         }
     }
 
+}
+
+void updateCustomer(Member loggedInMember) 
+{
+    ifstream inputFile("Members.csv");
+    if (!inputFile) {
+        cerr << "Error opening input file." << endl;
+        return;
+    }
+
+    vector<Member> members;
+    int id;
+    string username, password;
+    double totalMoney;
+    int loyaltyPoints;
+    while (inputFile >> id >> username >> password >> totalMoney >> loyaltyPoints) {
+        members.emplace_back(id, username, password, totalMoney, loyaltyPoints);
+    }
+    inputFile.close();
+
+    for (Member member : members) {
+        if (member.getID() == loggedInMember.getID()) {
+            member = loggedInMember; // Update the member's entire record
+            break;
+        }
+    }
+
+    std::ofstream outputFile("Members.csv");
+    if (!outputFile) {
+        std::cerr << "Error opening output file." << std::endl;
+        return;
+    }
+
+    for (Member member : members) {
+        outputFile << member.getID() << " " << member.getName() << " " << member.getPass() << " "
+            << member.getMoney() << " " << member.getPoints() << "\n";
+    }
+    outputFile.close();
 }
 
 void initData() 
@@ -82,13 +121,13 @@ void makeOrder()
     int makeOrderOpt = -1;
     int quantityOpt = 0;
     double orderCost = 0;
-    bool confirm = true;
+    bool makeOrderConfirm = true;
     List<Food> orderFoodList;
     std::cout << "+----------------------------+" << endl;
     std::cout << "+         Make Order         +" << endl;
     std::cout << "+----------------------------+" << endl;
 
-    while (confirm == true) 
+    while (makeOrderConfirm == true) 
     {
         foodMenu.print();
         std::cout << "+----------------------------+" << endl;
@@ -112,7 +151,7 @@ void makeOrder()
 
         else if (makeOrderOpt == 0)
         {
-            confirm = false;
+            makeOrderConfirm = false;
         }
 
         else 
@@ -125,18 +164,49 @@ void makeOrder()
     {
         double price = orderFoodList.get(i).getPrice();
         int quantity = orderFoodList.get(i).getQuantity();
-        orderCost = price * quantity;
+        orderCost += price * quantity;
     }
 
     if (loggedInMember.getMoney() - orderCost >= 0) 
     {
+        int pointsClaim;
+        bool pointsClaimConfirm = true;
+        if (loggedInMember.getPoints() > 0) {
+            while (pointsClaimConfirm == true)
+            {
+                std::cout << "You currently have: " << loggedInMember.getPoints() << " Points" << endl;
+                std::cout << "How many would you like to claim?" << endl;
+                std::cin >> pointsClaim;
+                
+                if (pointsClaim > loggedInMember.getPoints() || pointsClaim < 0 || pointsClaim > orderCost) {
+                    cout << "Please enter a valid input" << endl;
+                }
+
+                else {
+                    pointsClaimConfirm = false;
+                }
+            }
+
+            int earnedPoints = loggedInMember.AddLoyaltyPoint(orderCost);
+            orderCost -= pointsClaim;
+            loggedInMember.ClaimLoyaltyPoint(pointsClaim);
+            std::cout << "+---------------------------------------------+" << endl;
+            std::cout << "Your new Total is: " << orderCost  << endl;
+            std::cout << "You have earned: " << earnedPoints << " Points" << endl;
+            std::cout << "You now have: " << loggedInMember.getPoints() << " Points" << endl;
+            std::cout << "You have:$ " << loggedInMember.DeductMoney(orderCost) << " left in your account" << endl; 
+            std::cout << "+---------------------------------------------+" << endl;
+            std::cout << "" << endl;
+        }
+
         Order newOrder(loggedInMember, orderFoodList, orderQueue.getLength(), orderCost);
 
         orderQueue.enqueue(newOrder);
 
-        orderQueue.displayItems(newOrder.getOrderID());
+        newOrder.displayOrderDetails();
 
         std::cout << "Order Confirmed Successfully!" << endl;
+        std::cout << "" << endl;
     }
 
     else {
@@ -254,7 +324,9 @@ void memberMainMenu() {
         else if (memberMainOpt == 4)
         {
             std::cout << "Goodbye! It was a pleasure serving you!" << endl;
+
             exit(0);
+            updateCustomer(loggedInMember);
         }
 
         else
@@ -293,7 +365,7 @@ void registerMember() {
     std::cout << "Please enter how much money you would like to add to your account:" << endl;
     cin >> memberMoney;
 
-    Member newMember(memberUsername, memberPassword, memberMoney, 0);
+    Member newMember(memberHashTable.getLength(), memberUsername, memberPassword, memberMoney, 0);
 
     memberHashTable.add(newMember.getName(), newMember);
 
@@ -305,7 +377,7 @@ void registerMember() {
         std::cerr << "Error opening file: Customer.csv" << std::endl;
     }
 
-    file << memberUsername << "," << memberPassword << ","
+    file << memberHashTable.getLength() << "," << memberUsername << "," << memberPassword << ","
         << memberMoney << "," << "0" << endl;
 
     file.close();
@@ -396,6 +468,7 @@ void mainMenu() {
         {
             std::cout << "Goodbye! It was a pleasure serving you!" << endl;
             exit(0);
+            updateCustomer(loggedInMember);
         }
 
         else
