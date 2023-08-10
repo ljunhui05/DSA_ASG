@@ -81,23 +81,24 @@ void makeOrder()
 {
     int makeOrderOpt = -1;
     int quantityOpt = 0;
+    double orderCost = 0;
     bool confirm = true;
     List<Food> orderFoodList;
-    cout << "+----------------------------+" << endl;
-    cout << "+         Make Order         +" << endl;
-    cout << "+----------------------------+" << endl;
+    std::cout << "+----------------------------+" << endl;
+    std::cout << "+         Make Order         +" << endl;
+    std::cout << "+----------------------------+" << endl;
 
     while (confirm == true) 
     {
         foodMenu.print();
-        cout << "+----------------------------+" << endl;
-        cout << "Enter 0 to confirm your order" << endl;
-        cout << "" << endl;
-        cout << "Please select an option:" << endl;
+        std::cout << "+----------------------------+" << endl;
+        std::cout << "Enter 0 to confirm your order" << endl;
+        std::cout << "" << endl;
+        std::cout << "Please select an option:" << endl;
         cin >> makeOrderOpt;
         if (foodMenu.checkFoodExist(makeOrderOpt) == true)
         {
-            cout << "What is the quantity you want?" << endl;
+            std::cout << "What is the quantity you want?" << endl;
             cin >> quantityOpt;
 
             Food newFood(foodMenu.get(makeOrderOpt).getID(), foodMenu.get(makeOrderOpt).getName(),
@@ -116,26 +117,41 @@ void makeOrder()
 
         else 
         {
-            cout << "Enter a valid option!" << endl;
+            std::cout << "Enter a valid option!" << endl;
         }
     }
     
+    for (int i = 0; i < orderFoodList.getLength(); i++)
+    {
+        double price = orderFoodList.get(i).getPrice();
+        int quantity = orderFoodList.get(i).getQuantity();
+        orderCost = price * quantity;
+    }
 
-    Order newOrder(loggedInMember, orderFoodList, orderQueue.getLength());
+    if (loggedInMember.getMoney() - orderCost >= 0) 
+    {
+        Order newOrder(loggedInMember, orderFoodList, orderQueue.getLength(), orderCost);
 
-    orderQueue.enqueue(newOrder);
+        orderQueue.enqueue(newOrder);
 
-    orderQueue.displayItems(newOrder.getOrderID());
+        orderQueue.displayItems(newOrder.getOrderID());
 
-    cout << "Order Confirmed Successfully!" << endl;
+        std::cout << "Order Confirmed Successfully!" << endl;
+    }
+
+    else {
+        std::cout << "You do not have enough money in your account!" << endl;
+    }
+
+
 
 }
 
 void printOrder(Order& order) {
-    cout << "+----------------------------+" << endl;
-    cout << "OrderID: " << order.getOrderID() << endl;
+    std::cout << "+----------------------------+" << endl;
+    std::cout << "OrderID: " << order.getOrderID() << endl;
     order.displayOrderDetails();
-    cout << "+----------------------------+" << endl;
+    std::cout << "+----------------------------+" << endl;
 }
 
 void cancelOrder() 
@@ -143,31 +159,31 @@ void cancelOrder()
     int cancelOrderOpt;
     List<Order> memberOrderList;
     List<Order> orderList;
-    cout << "+----------------------------+" << endl;
-    cout << "+        Cancel Order        +" << endl;
-    cout << "+----------------------------+" << endl;
-    cout << "" << endl;
-    cout << "+----------------------------+" << endl;
-    cout << "+        Your Orders         +" << endl;
-    cout << "+----------------------------+" << endl;
+    std::cout << "+----------------------------+" << endl;
+    std::cout << "+        Cancel Order        +" << endl;
+    std::cout << "+----------------------------+" << endl;
+    std::cout << "" << endl;
+    std::cout << "+----------------------------+" << endl;
+    std::cout << "+        Your Orders         +" << endl;
+    std::cout << "+----------------------------+" << endl;
 
     
     memberOrderList = orderQueue.getMemberOrder(loggedInMember);
 
     if (memberOrderList.getLength() == 0) {
-        cout << "You do not currently have any orders" << endl;
+        std::cout << "You do not currently have any orders" << endl;
     }
 
     else {
         
         for (int i = 0; i < memberOrderList.getLength(); i++) 
         {
-            cout << "+----------------------------+" << endl;
-            cout << "OrderID: " << memberOrderList.get(i).getOrderID() << endl;
+            std::cout << "+----------------------------+" << endl;
+            std::cout << "OrderID: " << memberOrderList.get(i).getOrderID() << endl;
             memberOrderList.get(i).displayOrderDetails();
-            cout << "+----------------------------+" << endl;
+            std::cout << "+----------------------------+" << endl;
         }
-        cout << "Please select enter the OrderID of the order you would like to cancel: " << endl;
+        std::cout << "Please select enter the OrderID of the order you would like to cancel: " << endl;
         cin >> cancelOrderOpt;
         for (int j = 0; j < orderQueue.getLength(); j++)  
         {
@@ -189,7 +205,7 @@ void cancelOrder()
             orderQueue.enqueue(orderList.get(l));
         }
 
-        cout << "Order cancelled successfully!" << endl;
+        std::cout << "Order cancelled successfully!" << endl;
         
     }
 
@@ -199,23 +215,23 @@ void cancelOrder()
 
 void memberMainMenu() {
 
-    cout << "+----------------------------+" << endl;
-    cout << "         Hello " << loggedInMember.getName() << endl;
-    cout << "+    How may we serve you?   +" << endl;
-    cout << "+----------------------------+" << endl;
-    cout << "" << endl;
-    cout << "+----------------------------+" << endl;
-    cout << "+    [1] Make an Order       +" << endl;
-    cout << "+    [2] Cancel an Order     +" << endl;
-    cout << "+    [3] Manage Account      +" << endl;
-    cout << "+    [4] Exit                +" << endl;
-    cout << "+----------------------------+" << endl;
+    std::cout << "+----------------------------+" << endl;
+    std::cout << "         Hello " << loggedInMember.getName() << endl;
+    std::cout << "+    How may we serve you?   +" << endl;
+    std::cout << "+----------------------------+" << endl;
+    std::cout << "" << endl;
+    std::cout << "+----------------------------+" << endl;
+    std::cout << "+    [1] Make an Order       +" << endl;
+    std::cout << "+    [2] Cancel an Order     +" << endl;
+    std::cout << "+    [3] Manage Account      +" << endl;
+    std::cout << "+    [4] Exit                +" << endl;
+    std::cout << "+----------------------------+" << endl;
 
     int memberMainOpt = 0;
 
     while (memberMainOpt != 4)
     {
-        cout << "Please select an option" << endl;
+        std::cout << "Please select an option" << endl;
         cin >> memberMainOpt;
 
         if (memberMainOpt == 1)
@@ -237,13 +253,13 @@ void memberMainMenu() {
 
         else if (memberMainOpt == 4)
         {
-            cout << "Goodbye! It was a pleasure serving you!" << endl;
+            std::cout << "Goodbye! It was a pleasure serving you!" << endl;
             exit(0);
         }
 
         else
         {
-            cout << "Invalid Input!" << endl;
+            std::cout << "Invalid Input!" << endl;
         }
     }
 
@@ -253,28 +269,28 @@ void memberMainMenu() {
 }
 
 void printAdminLoginHeader() {
-    cout << "+---------------------------------+" << endl;
-    cout << "+         Login as Admin          +" << endl;
-    cout << "+---------------------------------+" << endl;
+    std::cout << "+---------------------------------+" << endl;
+    std::cout << "+         Login as Admin          +" << endl;
+    std::cout << "+---------------------------------+" << endl;
 }
 
 
 
 void registerMember() {
-    cout << "+---------------------------------+" << endl;
-    cout << "+       Register as a Member      +" << endl;
-    cout << "+---------------------------------+" << endl;
-    cout << "" << endl;
+    std::cout << "+---------------------------------+" << endl;
+    std::cout << "+       Register as a Member      +" << endl;
+    std::cout << "+---------------------------------+" << endl;
+    std::cout << "" << endl;
     string memberUsername;
     string memberPassword;
     double memberMoney = 0;
-    cout << "Please enter a username: " << endl;
+    std::cout << "Please enter a username: " << endl;
     cin >> memberUsername;
 
-    cout << "Please enter a password: " << endl;
+    std::cout << "Please enter a password: " << endl;
     cin >> memberPassword;
 
-    cout << "Please enter how much money you would like to add to your account:" << endl;
+    std::cout << "Please enter how much money you would like to add to your account:" << endl;
     cin >> memberMoney;
 
     Member newMember(memberUsername, memberPassword, memberMoney, 0);
@@ -298,32 +314,32 @@ void registerMember() {
 }
 
 void memberLogin() {
-    cout << "+---------------------------------+" << endl;
-    cout << "+        Login as Member          +" << endl;
-    cout << "+---------------------------------+" << endl;
-    cout << "" << endl;
+    std::cout << "+---------------------------------+" << endl;
+    std::cout << "+        Login as Member          +" << endl;
+    std::cout << "+---------------------------------+" << endl;
+    std::cout << "" << endl;
     string memberUsername = "";
     string memberPassword = "";
     double memberMoney = 0;
-    cout << "Please enter your username: " << endl;
+    std::cout << "Please enter your username: " << endl;
     cin >> memberUsername;
 
-    cout << "Please enter your password: " << endl;
+    std::cout << "Please enter your password: " << endl;
     cin >> memberPassword;
 
     if (memberHashTable.checkMemberExist(memberUsername) && memberHashTable.checkPass(memberUsername, memberPassword) == true)
     {
         loggedInMember = memberHashTable.get(memberUsername);
-        cout << "Successful Login!" << endl;
+        std::cout << "Successful Login!" << endl;
         memberMainMenu();
     }
 
     else
     {
         int loginOpt = 3;
-        cout << "Invalid Login Credentials!" << endl;
-        cout << "Don't have an account?" << endl;
-        cout << "Enter 1 to register an account. Enter 0 to return to the Login menu." << endl;
+        std::cout << "Invalid Login Credentials!" << endl;
+        std::cout << "Don't have an account?" << endl;
+        std::cout << "Enter 1 to register an account. Enter 0 to return to the Login menu." << endl;
         cin >> loginOpt;
 
         if (loginOpt == 1)
@@ -337,24 +353,24 @@ void memberLogin() {
         }
 
         else {
-            cout << "Invalid input!" << endl;
+            std::cout << "Invalid input!" << endl;
         }
     }
 
 }
 
 void mainMenu() {
-    cout << "+----------------------------+" << endl;
-    cout << "+     Welcome to The Bear!   +" << endl;
-    cout << "+----------------------------+" << endl;
-    cout << "" << endl;
-    cout << "+----------------------------+" << endl;
-    cout << "+   Please select an option  +" << endl;
-    cout << "+   [1] Register as a Member +" << endl;
-    cout << "+   [2] Login as Admin       +" << endl;
-    cout << "+   [3] Login as Member      +" << endl;
-    cout << "+   [4] Exit                 +" << endl;
-    cout << "+----------------------------+" << endl;
+    std::cout << "+----------------------------+" << endl;
+    std::cout << "+     Welcome to The Bear!   +" << endl;
+    std::cout << "+----------------------------+" << endl;
+    std::cout << "" << endl;
+    std::cout << "+----------------------------+" << endl;
+    std::cout << "+   Please select an option  +" << endl;
+    std::cout << "+   [1] Register as a Member +" << endl;
+    std::cout << "+   [2] Login as Admin       +" << endl;
+    std::cout << "+   [3] Login as Member      +" << endl;
+    std::cout << "+   [4] Exit                 +" << endl;
+    std::cout << "+----------------------------+" << endl;
 
     int mainOpt = 0;
     cin >> mainOpt;
@@ -378,13 +394,13 @@ void mainMenu() {
 
         else if (mainOpt == 4)
         {
-            cout << "Goodbye! It was a pleasure serving you!" << endl;
+            std::cout << "Goodbye! It was a pleasure serving you!" << endl;
             exit(0);
         }
 
         else
         {
-            cout << "Please enter a valid input!" << endl;
+            std::cout << "Please enter a valid input!" << endl;
             mainMenu();
         }
     }
