@@ -114,14 +114,17 @@ int Dictionary::getLength() {
 }
 
 void Dictionary::print() {
+	cout << "+------------------------------------------------------------------+" << endl;
 	for (int i = 0; i < MAX_DictSIZE - 1; i++) {
 		if (items[i] != NULL) {
 			Node* current = items[i];
 			cout << current->item.getName();
 			cout << "[" << current->item.getID() << "]" << endl;
-			cout << " Price: " << current->item.getPrice();
-			cout << " Quantity " << current->item.getQuantity();
-			cout << " Category: " << current->item.getCategory() << endl;
+			cout << "Price: $" << current->item.getPrice() << " |";
+			cout << " Quantity " << current->item.getQuantity() << " |";
+			cout << " Category: " << current->item.getCategory() << " |";
+			cout << " Restaurant: " << current->item.getRestaurant() << endl;
+			cout << "+------------------------------------------------------------------+" << endl;
 		}
 	}
 }
