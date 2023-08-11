@@ -24,7 +24,12 @@ HashTable memberHashTable;
 Member loggedInMember;
 Queue orderQueue;
 
-void initCustomer() {
+//------------------------------------------------------------------//
+// Lim JunHui (S10242387K)                                          //
+// This function reads the csv file that contains all the Members   //
+// information, and adds them to a HashTable to for accessing later.//
+//------------------------------------------------------------------//
+void initMember() {
 
     ifstream inFile("Members.csv");
     if (!inFile) {
@@ -45,7 +50,13 @@ void initCustomer() {
 
 }
 
-void updateCustomer(Member loggedInMember)
+//------------------------------------------------------------------//
+// Lim JunHui (S10242387K)                                          //
+// This function updates the current logged in member's attributes  //
+// after their session ends. It takes the input parameter of the    //
+// currently logged in member.                                      //
+//------------------------------------------------------------------//
+void updateMember(Member loggedInMember)
 {
     ifstream inputFile("Members.csv");
     if (!inputFile) {
@@ -93,9 +104,14 @@ void updateCustomer(Member loggedInMember)
     outputFile.close();
 }
 
+//------------------------------------------------------------------//
+// Lim JunHui (S10242387K)                                          //
+// This function initialises all the data needed to run this program//
+// like the Members, Admin, Food Dictionary                         //
+//------------------------------------------------------------------//
 void initData() 
 {
-    initCustomer();
+    initMember();
 
     Admin Admin1("Admin1", "passAdmin1");
 
@@ -126,6 +142,16 @@ void initData()
     foodMenu.add(10, Food10);
 }
 
+//------------------------------------------------------------------//
+// Lim JunHui (S10242387K)                                          //
+// This function enables the Member to make an order. The function  //
+// displays all the food that the Member can order from the         //
+// dictionary of Food objects. After the Member makes a selection of//
+// Food, the system adds loyalty points based on the order total    //
+// before the claim of loyalty points. Then the system subtracts the//
+// amount of loyalty points claimed, from the Member and subtracts  //
+// the corresponding amount of points from the order total          //
+//------------------------------------------------------------------//
 void makeOrder() 
 {
     int makeOrderOpt = -1;
@@ -227,12 +253,26 @@ void makeOrder()
 
 }
 
+//------------------------------------------------------------------//
+// Lim JunHui (S10242387K)                                          //
+// This function makes use of the displayOrderDetails function in   //
+// the Order class. It formats the information of the order in a    //
+// readable form for the member                                     //
+//------------------------------------------------------------------//
+
 void printOrder(Order& order) {
     std::cout << "+----------------------------+" << endl;
     std::cout << "OrderID: " << order.getOrderID() << endl;
     order.displayOrderDetails();
     std::cout << "+----------------------------+" << endl;
 }
+
+//------------------------------------------------------------------//
+// Lim JunHui (S10242387K)                                          //
+// This function loads in all the orders that the member has using  //
+// the getMemberOrder function in orderQueue. Then based on the     //
+// member's input, it cancels the order based on the OrderID        //
+//------------------------------------------------------------------//
 
 void cancelOrder() 
 {
@@ -293,6 +333,14 @@ void cancelOrder()
 
 }
 
+//------------------------------------------------------------------//
+// Lim JunHui (S10242387K)                                          //
+// This function allows for the member to be able to see their      //
+// account details. This function also allows for the member to be  //
+// able to add money to their account using the AddMoney function in//
+// the Member class                                                 //
+//------------------------------------------------------------------//
+
 void manageMemberAccount() {
 
     int manageMemberAccountOpt = -1; 
@@ -320,13 +368,21 @@ void manageMemberAccount() {
 
     else if (manageMemberAccountOpt == 0) 
     {
-
+        return;
     }
 
     else {
         cout << "Please enter a valid input!" << endl; 
     }
 }
+
+//------------------------------------------------------------------//
+// Lim JunHui (S10242387K)                                          //
+// This function prints a header with a message with the member's   // 
+// name and also prints the menu with all the actions that the      //
+// member can do. Based on the member's selection of action, this   //
+// function calls the respective functions                          // 
+//------------------------------------------------------------------//
 
 void memberMainMenu() {
     string memberMainOpt = "";
@@ -369,7 +425,7 @@ void memberMainMenu() {
         else if (memberMainOpt == "4")
         {
             std::cout << "Goodbye! It was a pleasure serving you!" << endl;
-            updateCustomer(loggedInMember);
+            updateMember(loggedInMember);
             exit(0);
         }
 
@@ -387,6 +443,15 @@ void printAdminLoginHeader() {
     std::cout << "+         Login as Admin          +" << endl;
     std::cout << "+---------------------------------+" << endl;
 }
+
+//------------------------------------------------------------------//
+// Lim JunHui (S10242387K)                                          //
+// This function allows for a new user to register as a Member.     //
+// After the user inputs their username, password and amount of     //
+// money, it creates a new Member object then adds it to the        //
+// HashTable of members. This function also appends this new member //
+// to the csv file                                                  //
+//------------------------------------------------------------------//
 
 void registerMember() {
     std::cout << "+---------------------------------+" << endl;
@@ -425,6 +490,15 @@ void registerMember() {
     memberMainMenu();
 }
 
+//------------------------------------------------------------------//
+// Lim JunHui (S10242387K)                                          //
+// This function allows the user to login into a member account. By //
+// using the checkMemberExist and checkPass functions in the        //
+// HashTable class, it prints a success message and redirects the   //
+// user to the memberMainMenu if it is a valid Member account.      //
+// Otherwise it prompts the user if they want to register or return //
+// to the login menu                                                //   
+//------------------------------------------------------------------//
 void memberLogin() {
     std::cout << "+---------------------------------+" << endl;
     std::cout << "+        Login as Member          +" << endl;
@@ -471,6 +545,12 @@ void memberLogin() {
 
 }
 
+//------------------------------------------------------------------//
+// Lim JunHui (S10242387K)                                          //
+// This function prints a welcome message in a header, and prompts  //
+// the user to enter option of the action that they would like to   //
+// do. Based on the user's input, it calls the respective functions // 
+//------------------------------------------------------------------//
 void mainMenu() {
     string mainOpt = "";
     while (true)
@@ -508,7 +588,7 @@ void mainMenu() {
         else if (mainOpt == "4")
         {
             std::cout << "Goodbye! It was a pleasure serving you!" << endl;
-            updateCustomer(loggedInMember);
+            updateMember(loggedInMember);
             exit(0);
         }
 
@@ -520,6 +600,11 @@ void mainMenu() {
 
 }
 
+//------------------------------------------------------------------//
+// Lim JunHui (S10242387K)                                          //
+// This function calls the initData function to load the data needed//
+// and the mainMenu function.                                       //
+//------------------------------------------------------------------//
 int main(){
     initData();
     mainMenu();

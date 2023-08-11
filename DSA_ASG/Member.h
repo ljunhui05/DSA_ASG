@@ -1,3 +1,7 @@
+//-----------------------------//
+// Lim JunHui (S10242387K)     //
+//-----------------------------//
+
 #pragma once
 #include <string>
 #include <iostream>
@@ -21,7 +25,6 @@ public:
 	string getPass();
 	double getMoney();
 	int getPoints();
-	void modifyMemberDetails(Member Member);
 	double AddMoney(double Amt);
 	double DeductMoney(double Cost);
 	int AddLoyaltyPoint(double OrderCost);
