@@ -1,8 +1,12 @@
+//-----------------------------//
+// Lim JunHui (S10242387K)     //
+//-----------------------------//
 #include <string>
 #include <iostream>
 using namespace std;
 #include "HashTable.h"
 
+//Constructor of HashTable
 HashTable::HashTable() {
 
 	for (int i = 0; i <= MAX_HashSIZE-1; i++) {
@@ -11,6 +15,7 @@ HashTable::HashTable() {
 	size = 0;
 }
 
+//Destructor of HashTable
 HashTable::~HashTable() {
 	Node* temp = items[0];
 
@@ -21,6 +26,9 @@ HashTable::~HashTable() {
 	}
 }
 
+//Input parameters: member username as key
+//Return value: returns an integer which is the index in the hashtable that the item should be inserted at
+//Description: Hash function for HashTable, which takes the input parameters of the member username
 int HashTable::hash(KeyType key) {
 	int sum = 0;
 	for (char ch : key)
@@ -28,6 +36,11 @@ int HashTable::hash(KeyType key) {
 	return sum % MAX_HashSIZE;
 }
 
+//Input parameters: member username as newKey and Member object as newItem
+//Return value: boolean value
+//Description: Function to add a new Member object into the hashtable. It takes the input parameters of
+//the member's user name as the key, and the object as the Item. If the username of a member in the hashtable
+//is the same as the member being added, then it returns false. Else it returns true.
 bool HashTable::add(KeyType newKey, ItemType newItem) {
 	int index = hash(newKey);
 	if (items[index] == nullptr) {
@@ -61,7 +74,10 @@ bool HashTable::add(KeyType newKey, ItemType newItem) {
 	size++;
 	return true;
 }
-
+//Input parameters: member username as key
+// Description: Function to remove the member object from the hashtable. It takes in the member's 
+// username as a input parameter which is used by the hash function, and removes the object at the index that 
+//the hash function returns.
 void HashTable::remove(KeyType key)
 {
 	int index = hash(key);
@@ -87,6 +103,10 @@ void HashTable::remove(KeyType key)
 	}
 }
 
+//Input parameters: member username as key
+//Return value: Member Object
+//Description: Function to get the member object at a certain index, which is derived by using the 
+//hash function and the input parameter of the member's username.
 ItemType HashTable::get(KeyType key) {
 	int index = hash(key);
 	Node* current = items[index];
@@ -102,6 +122,10 @@ ItemType HashTable::get(KeyType key) {
 	return ItemType();
 }
 
+//Input parameters: member username as key
+//Return value: boolean value
+//Description: Function to check if the username exists in the hashtable and returns true if it does. 
+//If it does not it returns false
 bool HashTable::checkMemberExist(KeyType key) {
 	int index = hash(key);
 	Node* current = items[index];
@@ -117,6 +141,10 @@ bool HashTable::checkMemberExist(KeyType key) {
 	return false;
 }
 
+//Input parameters: member username as key and member password as pass
+//Return value: boolean value
+//Description: Function to check if the password in the input parameters matches the password given in the input
+//parameters. If it does, it returns true, else it returns false.
 bool HashTable::checkPass(KeyType key, string pass) {
 	int index = hash(key);
 	Node* current = items[index];
@@ -132,6 +160,7 @@ bool HashTable::checkPass(KeyType key, string pass) {
 	return false;
 }
 
+//Description: Function to print out all the items in the hashtable
 void HashTable::print() {
 	for (int i = 0; i < MAX_HashSIZE - 1; i++) {
 		if (items[i] != NULL) {
@@ -141,6 +170,8 @@ void HashTable::print() {
 	}
 }
 
+//Return value: size of the hashtable
+//Description: Function to get the size of the hashtable
 int HashTable::getLength() {
 	return MAX_HashSIZE;
 }

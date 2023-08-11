@@ -1,3 +1,6 @@
+//-----------------------------//
+// Lim JunHui (S10242387K)     //
+//-----------------------------//
 #pragma once
 #include <string>
 #include <iostream>
@@ -20,14 +23,14 @@ private:
 	};
 
 	Node* items[MAX_HashSIZE];
-	int  size;			// number of items in the Dictionary
+	int  size;			
 
 public:
 
-	// constructor
+	// constructor of hashtable
 	HashTable();
 
-	// destructor
+	// destructor of hashtable
 	~HashTable();
 
 	int hash(KeyType key);
