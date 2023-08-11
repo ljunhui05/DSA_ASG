@@ -34,8 +34,6 @@ int Member::getNameLength() {
 	return Username.size();
 }
 
-
-
 string Member::getPass() 
 {
 	return Password;
@@ -49,6 +47,12 @@ double Member::getMoney()
 int Member::getPoints() 
 {
 	return LoyaltyPoints;
+}
+
+void Member::modifyMemberDetails(Member Member) 
+{
+	TotalMoney = Member.getMoney();
+	LoyaltyPoints = Member.getPoints();
 }
 
 double Member::AddMoney(double amt) 

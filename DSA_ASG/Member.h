@@ -21,6 +21,7 @@ public:
 	string getPass();
 	double getMoney();
 	int getPoints();
+	void modifyMemberDetails(Member Member);
 	double AddMoney(double Amt);
 	double DeductMoney(double Cost);
 	int AddLoyaltyPoint(double OrderCost);

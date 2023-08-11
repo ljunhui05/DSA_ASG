@@ -53,19 +53,25 @@ void updateCustomer(Member loggedInMember)
         return;
     }
 
-    vector<Member> members;
-    int id;
-    string username, password;
-    double totalMoney;
-    int loyaltyPoints;
-    while (inputFile >> id >> username >> password >> totalMoney >> loyaltyPoints) {
-        members.emplace_back(id, username, password, totalMoney, loyaltyPoints);
+
+    List<Member> members;
+
+    std::string line;
+    while (getline(inputFile, line)) {
+        std::istringstream iss(line);
+        std::string ID, name, password, money, points;
+
+        if (getline(iss, ID, ',') && getline(iss, name, ',') && getline(iss, password, ',') && getline(iss, money, ',') && getline(iss, points)) {
+            Member member(stoi(ID), name, password, stod(money), stoi(points));
+            members.add(member);
+        }
     }
+
     inputFile.close();
 
-    for (Member member : members) {
-        if (member.getID() == loggedInMember.getID()) {
-            member = loggedInMember; // Update the member's entire record
+    for (int i = 0; i < members.getLength(); i ++) {
+        if (members.get(i).getID() == loggedInMember.getID()) {
+            members.get(i).modifyMemberDetails(loggedInMember);
             break;
         }
     }
@@ -76,10 +82,13 @@ void updateCustomer(Member loggedInMember)
         return;
     }
 
-    for (Member member : members) {
-        outputFile << member.getID() << " " << member.getName() << " " << member.getPass() << " "
-            << member.getMoney() << " " << member.getPoints() << "\n";
+    // Loop through the updated members list and write data to the output file
+    for (int i = 0; i < members.getLength(); i++) {
+        outputFile << members.get(i).getID() << "," << members.get(i).getName() << ","
+            << members.get(i).getPass() << "," << members.get(i).getMoney() << ","
+            << members.get(i).getPoints()<< endl;
     }
+
     outputFile.close();
 }
 
@@ -191,10 +200,10 @@ void makeOrder()
             orderCost -= pointsClaim;
             loggedInMember.ClaimLoyaltyPoint(pointsClaim);
             std::cout << "+---------------------------------------------+" << endl;
-            std::cout << "Your new Total is: " << orderCost  << endl;
+            std::cout << "Your new Total is:$" << orderCost  << endl;
             std::cout << "You have earned: " << earnedPoints << " Points" << endl;
             std::cout << "You now have: " << loggedInMember.getPoints() << " Points" << endl;
-            std::cout << "You have:$ " << loggedInMember.DeductMoney(orderCost) << " left in your account" << endl; 
+            std::cout << "You have:$" << loggedInMember.DeductMoney(orderCost) << " left in your account" << endl; 
             std::cout << "+---------------------------------------------+" << endl;
             std::cout << "" << endl;
         }
@@ -283,50 +292,84 @@ void cancelOrder()
 
 }
 
-void memberMainMenu() {
+void manageMemberAccount() {
 
-    std::cout << "+----------------------------+" << endl;
-    std::cout << "         Hello " << loggedInMember.getName() << endl;
-    std::cout << "+    How may we serve you?   +" << endl;
-    std::cout << "+----------------------------+" << endl;
-    std::cout << "" << endl;
-    std::cout << "+----------------------------+" << endl;
-    std::cout << "+    [1] Make an Order       +" << endl;
-    std::cout << "+    [2] Cancel an Order     +" << endl;
-    std::cout << "+    [3] Manage Account      +" << endl;
-    std::cout << "+    [4] Exit                +" << endl;
-    std::cout << "+----------------------------+" << endl;
+    int manageMemberAccountOpt = -1; 
+    cout << "+--------------------------------------+" << endl;
+    cout << "+         Your Account Details         +" << endl;
+    cout << "+--------------------------------------+" << endl;
 
-    int memberMainOpt = 0;
+    cout << "+--------------------------------------+" << endl;
+    cout << "   Money:$" << loggedInMember.getMoney() << endl;
+    cout << "   Loyalty Points: " << loggedInMember.getPoints() << endl;
+    cout << "+--------------------------------------+" << endl;
 
-    while (memberMainOpt != 4)
+    cout << "" << endl;
+    cout << "Short on money? Enter 1 to top up!" << endl;
+    cout << "Enter 0 to return to the main menu" << endl;
+    cin >> manageMemberAccountOpt;
+    if (manageMemberAccountOpt == 1) {
+        double topUpAmt;
+        cout << "Enter the amount you would like to top up: " << endl;
+        cin >> topUpAmt; 
+        loggedInMember.AddMoney(topUpAmt);
+        cout << "Successfully topped up!" << endl;
+        cout << "Your new balance is:$" << loggedInMember.getMoney() << endl;
+    }
+
+    else if (manageMemberAccountOpt == 0) 
     {
+
+    }
+
+    else {
+        cout << "Please enter a valid input!" << endl; 
+    }
+}
+
+void memberMainMenu() {
+    string memberMainOpt = "";
+
+    while (true)
+    {
+
+        std::cout << "+----------------------------+" << endl;
+        std::cout << "         Hello " << loggedInMember.getName() << endl;
+        std::cout << "+    How may we serve you?   +" << endl;
+        std::cout << "+----------------------------+" << endl;
+        std::cout << "" << endl;
+        std::cout << "+----------------------------+" << endl;
+        std::cout << "+    [1] Make an Order       +" << endl;
+        std::cout << "+    [2] Cancel an Order     +" << endl;
+        std::cout << "+    [3] Manage Account      +" << endl;
+        std::cout << "+    [4] Exit                +" << endl;
+        std::cout << "+----------------------------+" << endl;
+
+
+
         std::cout << "Please select an option" << endl;
         cin >> memberMainOpt;
 
-        if (memberMainOpt == 1)
+        if (memberMainOpt == "1")
         {
             makeOrder();
-            memberMainMenu();
         }
 
-        else if (memberMainOpt == 2)
+        else if (memberMainOpt == "2")
         {
             cancelOrder();
-            memberMainMenu();
         }
 
-        else if (memberMainOpt == 3)
+        else if (memberMainOpt == "3")
         {
-
+            manageMemberAccount();
         }
 
-        else if (memberMainOpt == 4)
+        else if (memberMainOpt == "4")
         {
             std::cout << "Goodbye! It was a pleasure serving you!" << endl;
-
-            exit(0);
             updateCustomer(loggedInMember);
+            exit(0);
         }
 
         else
@@ -334,8 +377,6 @@ void memberMainMenu() {
             std::cout << "Invalid Input!" << endl;
         }
     }
-
-    
 
 
 }
@@ -432,49 +473,49 @@ void memberLogin() {
 }
 
 void mainMenu() {
-    std::cout << "+----------------------------+" << endl;
-    std::cout << "+     Welcome to The Bear!   +" << endl;
-    std::cout << "+----------------------------+" << endl;
-    std::cout << "" << endl;
-    std::cout << "+----------------------------+" << endl;
-    std::cout << "+   Please select an option  +" << endl;
-    std::cout << "+   [1] Register as a Member +" << endl;
-    std::cout << "+   [2] Login as Admin       +" << endl;
-    std::cout << "+   [3] Login as Member      +" << endl;
-    std::cout << "+   [4] Exit                 +" << endl;
-    std::cout << "+----------------------------+" << endl;
-
-    int mainOpt = 0;
-    cin >> mainOpt;
-
-    while (mainOpt != 4)
+    string mainOpt = "";
+    while (true)
     {
-        if (mainOpt == 1)
+        std::cout << "+----------------------------+" << endl;
+        std::cout << "+     Welcome to The Bear!   +" << endl;
+        std::cout << "+----------------------------+" << endl;
+        std::cout << "" << endl;
+        std::cout << "+----------------------------+" << endl;
+        std::cout << "+   Please select an option  +" << endl;
+        std::cout << "+   [1] Register as a Member +" << endl;
+        std::cout << "+   [2] Login as Admin       +" << endl;
+        std::cout << "+   [3] Login as Member      +" << endl;
+        std::cout << "+   [4] Exit                 +" << endl;
+        std::cout << "+----------------------------+" << endl;
+
+
+        cin >> mainOpt;
+
+        if (mainOpt == "1")
         {
             registerMember();
         }
 
-        else if (mainOpt == 2)
+        else if (mainOpt == "2")
         {
             printAdminLoginHeader();
         }
 
-        else if (mainOpt == 3)
+        else if (mainOpt == "3")
         {
             memberLogin();
         }
 
-        else if (mainOpt == 4)
+        else if (mainOpt == "4")
         {
             std::cout << "Goodbye! It was a pleasure serving you!" << endl;
-            exit(0);
             updateCustomer(loggedInMember);
+            exit(0);
         }
 
         else
         {
             std::cout << "Please enter a valid input!" << endl;
-            mainMenu();
         }
     }
 
