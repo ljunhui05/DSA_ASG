@@ -71,7 +71,8 @@ void updateCustomer(Member loggedInMember)
 
     for (int i = 0; i < members.getLength(); i ++) {
         if (members.get(i).getID() == loggedInMember.getID()) {
-            members.get(i).modifyMemberDetails(loggedInMember);
+            members.add(i, loggedInMember);
+            members.remove(i+1);
             break;
         }
     }
@@ -386,8 +387,6 @@ void printAdminLoginHeader() {
     std::cout << "+         Login as Admin          +" << endl;
     std::cout << "+---------------------------------+" << endl;
 }
-
-
 
 void registerMember() {
     std::cout << "+---------------------------------+" << endl;
