@@ -6,7 +6,8 @@
 using namespace std;
 #include "HashTable.h"
 
-//Constructor of HashTable
+//Lim JunHui (S10242387K)
+//Description: Constructor of HashTable
 HashTable::HashTable() {
 
 	for (int i = 0; i <= MAX_HashSIZE-1; i++) {
@@ -15,7 +16,8 @@ HashTable::HashTable() {
 	size = 0;
 }
 
-//Destructor of HashTable
+//Lim JunHui (S10242387K)
+//Description: Destructor of HashTable
 HashTable::~HashTable() {
 	Node* temp = items[0];
 
@@ -25,7 +27,7 @@ HashTable::~HashTable() {
 		temp = next;
 	}
 }
-
+//Lim JunHui (S10242387K)
 //Input parameters: member username as key
 //Return value: returns an integer which is the index in the hashtable that the item should be inserted at
 //Description: Hash function for HashTable, which takes the input parameters of the member username
@@ -36,6 +38,7 @@ int HashTable::hash(KeyType key) {
 	return sum % MAX_HashSIZE;
 }
 
+//Lim JunHui (S10242387K)
 //Input parameters: member username as newKey and Member object as newItem
 //Return value: boolean value
 //Description: Function to add a new Member object into the hashtable. It takes the input parameters of
@@ -74,6 +77,8 @@ bool HashTable::add(KeyType newKey, ItemType newItem) {
 	size++;
 	return true;
 }
+
+//Lim JunHui (S10242387K)
 //Input parameters: member username as key
 // Description: Function to remove the member object from the hashtable. It takes in the member's 
 // username as a input parameter which is used by the hash function, and removes the object at the index that 
@@ -103,6 +108,7 @@ void HashTable::remove(KeyType key)
 	}
 }
 
+//Lim JunHui (S10242387K)
 //Input parameters: member username as key
 //Return value: Member Object
 //Description: Function to get the member object at a certain index, which is derived by using the 
@@ -122,6 +128,7 @@ ItemType HashTable::get(KeyType key) {
 	return ItemType();
 }
 
+//Lim JunHui (S10242387K)
 //Input parameters: member username as key
 //Return value: boolean value
 //Description: Function to check if the username exists in the hashtable and returns true if it does. 
@@ -141,6 +148,7 @@ bool HashTable::checkMemberExist(KeyType key) {
 	return false;
 }
 
+//Lim JunHui (S10242387K)
 //Input parameters: member username as key and member password as pass
 //Return value: boolean value
 //Description: Function to check if the password in the input parameters matches the password given in the input
@@ -160,6 +168,7 @@ bool HashTable::checkPass(KeyType key, string pass) {
 	return false;
 }
 
+//Lim JunHui (S10242387K)
 //Description: Function to print out all the items in the hashtable
 void HashTable::print() {
 	for (int i = 0; i < MAX_HashSIZE - 1; i++) {
@@ -170,6 +179,7 @@ void HashTable::print() {
 	}
 }
 
+//Lim JunHui (S10242387K)
 //Return value: size of the hashtable
 //Description: Function to get the size of the hashtable
 int HashTable::getLength() {
