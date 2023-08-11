@@ -4,7 +4,8 @@
 
 using namespace std;
 
-
+//Lim JunHui (S10242387K)
+//Description: Constructor for Dictionary class
 Dictionary::Dictionary() {
 
 	for (int i = 0; i <= MAX_DictSIZE-1; i++) {
@@ -13,6 +14,8 @@ Dictionary::Dictionary() {
 	size = 0;
 }
 
+//Lim JunHui (S10242387K)
+//Description: Destructor for Dictionary class
 Dictionary::~Dictionary() {
 	Node* temp = items[0];
 
@@ -23,7 +26,12 @@ Dictionary::~Dictionary() {
 	}
 }
 
-
+//Lim JunHui (S10242387K)
+//Input parameters: FoodID as newKey and Food Object as newItem
+//Return value: boolean value
+//Description: Function to add a new Food object into the dictionary. It takes the input parameters of
+//the FoodID as the key, and the object as the newItem. It returns true if the IDs of the new Food object don't
+//match. Else it returns false.
 bool Dictionary::add(Key newKey, Item newItem) {
 	if (items[newKey] == nullptr) {
 		Node* newNode = new Node;
@@ -57,6 +65,9 @@ bool Dictionary::add(Key newKey, Item newItem) {
 	return true;
 }
 
+//Lim JunHui (S10242387K)
+//Input parameters: FoodID as key
+//Description: This function removes the Food object with the corresponding key from the dictionary 
 void Dictionary::remove(Key key)
 {
 	Node* current = items[key];
@@ -81,6 +92,11 @@ void Dictionary::remove(Key key)
 	}
 }
 
+
+//Lim JunHui (S10242387K)
+//Input parameters: FoodID as key
+//Return value: Food object
+//Description: This function returns the Food object with the corresponding key from the dictionary.
 Item Dictionary::get(Key key) {
 	Node* current = items[key];
 
@@ -95,6 +111,12 @@ Item Dictionary::get(Key key) {
 	return Item();
 }
 
+//Lim JunHui (S10242387K)
+//Input parameters: FoodID as key
+//Return value: Boolean value
+//Description: This function goes to the index of the dictionary based on the ID of the Food. If the Key at the 
+//index of the dictionary matches the input parameter, it has found the food object and it returns true. Else it
+//returns false.
 bool Dictionary::checkFoodExist(Key key) {
 	Node* current = items[key];
 
@@ -109,10 +131,15 @@ bool Dictionary::checkFoodExist(Key key) {
 	return false;
 }
 
+//Lim JunHui (S10242387K)
+//Return value: Size of the Dictionary
+//Description: Function to get the size of the Dictionary
 int Dictionary::getLength() {
 	return MAX_DictSIZE;
 }
 
+//Lim JunHui (S10242387K)
+//Description: Function to print all the details of the Food objects in the dictionary
 void Dictionary::print() {
 	cout << "+------------------------------------------------------------------+" << endl;
 	for (int i = 0; i < MAX_DictSIZE - 1; i++) {
