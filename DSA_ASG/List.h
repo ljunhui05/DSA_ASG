@@ -26,15 +26,15 @@ public:
     //List constructor
     List() : head(nullptr), size(0) {}
 
-    // Destructor to clean up memory
-    ~List() {
-        Node* current = head;
-        while (current) {
-            Node* next = current->next;
-            delete current;
-            current = next;
-        }
-    }
+    //// Destructor to clean up memory
+    //~List() {
+    //    Node* current = head;
+    //    while (current) {
+    //        Node* next = current->next;
+    //        delete current;
+    //        current = next;
+    //    }
+    //}
 
 
     //Adds an item of class T to the end of the linked list

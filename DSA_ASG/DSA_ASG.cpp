@@ -52,6 +52,7 @@ void initMember() {
 
 //------------------------------------------------------------------//
 // Lim JunHui (S10242387K)                                          //
+// Input parameters: Member object as loggedInMember                //
 // This function updates the current logged in member's attributes  //
 // after their session ends. It takes the input parameter of the    //
 // currently logged in member.                                      //
