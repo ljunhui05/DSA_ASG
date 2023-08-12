@@ -471,51 +471,64 @@ void printAdminLoginHeader() {
 // Lim JunHui (S10242387K)                                          //
 // This function allows for a new user to register as a Member.     //
 // After the user inputs their username, password and amount of     //
-// money, it creates a new Member object then adds it to the        //
-// HashTable of members. This function also appends this new member //
-// to the csv file                                                  //
+// money, it creates a new Member object. It checks if the username //
+// entered exists. If it does, it prompts the user to enter a unique//
+// username. Else, it adds the Member object to the HashTable of    //
+// members. This function also appends this new member to the csv   //
+// file.                                                            //
 //------------------------------------------------------------------//
 
 void registerMember() {
-    std::cout << "+---------------------------------+" << endl;
-    std::cout << "+       Register as a Member      +" << endl;
-    std::cout << "+---------------------------------+" << endl;
-    std::cout << "" << endl;
-    string memberUsername;
-    string memberPassword;
-    double memberMoney = 0;
-    std::cout << "Please enter a username: " << endl;
-    cin >> memberUsername;
+    bool validUsername = false;
+    while (validUsername == false) {
 
-    std::cout << "Please enter a password: " << endl;
-    cin >> memberPassword;
+        std::cout << "+---------------------------------+" << endl;
+        std::cout << "+       Register as a Member      +" << endl;
+        std::cout << "+---------------------------------+" << endl;
+        std::cout << "" << endl;
+        string memberUsername;
+        string memberPassword;
+        double memberMoney = 0;
+        std::cout << "Please enter a username: " << endl;
+        cin >> memberUsername;
 
-    std::cout << "Please enter how much money you would like to add to your account:" << endl;
-    while (!(std::cin >> memberMoney)) {
-        std::cout << "Invalid Input! Try again:" << endl;
-        std::cin.clear();
-        std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        std::cout << "Please enter a password: " << endl;
+        cin >> memberPassword;
+
+        std::cout << "Please enter how much money you would like to add to your account:" << endl;
+        while (!(std::cin >> memberMoney)) {
+            std::cout << "Invalid Input! Try again:" << endl;
+            std::cin.clear();
+            std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+
+
+        Member newMember(memberHashTable.getLength(), memberUsername, memberPassword, memberMoney, 0);
+
+        if (memberHashTable.add(newMember.getName(), newMember) == true)
+        {
+            memberHashTable.add(newMember.getName(), newMember);
+            loggedInMember = memberHashTable.get(memberUsername);
+
+            ofstream file("Members.csv", std::ios::app); // Open file in append mode
+
+            if (!file.is_open()) {
+                std::cerr << "Error opening file: Members.csv" << std::endl;
+            }
+
+            file << memberHashTable.getLength() << "," << memberUsername << "," << memberPassword << ","
+                << memberMoney << "," << "0" << endl;
+
+            file.close();
+
+            memberMainMenu();
+            validUsername = true;
+        }
+
+        else {
+            std::cout << "Username already taken! Try another one" << endl;
+        }
     }
-
-
-    Member newMember(memberHashTable.getLength(), memberUsername, memberPassword, memberMoney, 0);
-
-    memberHashTable.add(newMember.getName(), newMember);
-
-    loggedInMember = memberHashTable.get(memberUsername);
-
-    ofstream file("Members.csv", std::ios::app); // Open file in append mode
-
-    if (!file.is_open()) {
-        std::cerr << "Error opening file: Customer.csv" << std::endl;
-    }
-
-    file << memberHashTable.getLength() << "," << memberUsername << "," << memberPassword << ","
-        << memberMoney << "," << "0" << endl;
-
-    file.close();
-
-    memberMainMenu();
 }
 
 //------------------------------------------------------------------//
