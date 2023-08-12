@@ -8,7 +8,7 @@
 #include <vector>
 using namespace std;
 
-#include "Admin.h";
+#include"Admin.h";
 #include"Dictionary.h";
 #include"Food.h";
 #include"HashTable.h";
@@ -443,6 +443,93 @@ void printAdminLoginHeader() {
     std::cout << "+---------------------------------+" << endl;
     std::cout << "+         Login as Admin          +" << endl;
     std::cout << "+---------------------------------+" << endl;
+    std::cout << "" << endl;
+    /*
+    string AdminUsername = "";
+    string AdminPassword = "";
+    std::cout << "Please enter your username: " << endl;
+    cin >> adminUsername;
+
+    std::cout << "Please enter your password: " << endl;
+    cin >> adminPassword;
+
+    if (memberHashTable.checkMemberExist(memberUsername) && memberHashTable.checkPass(memberUsername, memberPassword) == true)
+    {
+        loggedInMember = memberHashTable.get(memberUsername);
+        std::cout << "Successful Login!" << endl;
+        memberMainMenu();
+    }
+
+    else
+    {
+        int loginOpt = 3;
+        std::cout << "Invalid Login Credentials!" << endl;
+        std::cout << "Don't have an account?" << endl;
+        std::cout << "Enter 1 to register an account. Enter 0 to return to the Login menu." << endl;
+        cin >> loginOpt;
+
+        if (loginOpt == 1)
+        {
+            registerMember();
+        }
+
+        else if (loginOpt == 0)
+        {
+            memberLogin();
+        }
+
+        else {
+            std::cout << "Invalid input!" << endl;
+        }
+    }*/
+
+}
+
+void adminMainMenu() {
+    string adminMainOpt = "";
+
+    while (true)
+    {
+
+        std::cout << "+----------------------------+" << endl;
+        std::cout << "         Hello                "  << endl;
+        std::cout << "+ What would you like to do? +" << endl;
+        std::cout << "+----------------------------+" << endl;
+        std::cout << "" << endl;
+        std::cout << "+----------------------------+" << endl;
+        std::cout << "+ [1] View incoming orders+"    << endl;
+        std::cout << "+ [2] Update status of orders+" << endl;
+        std::cout << "+ [0] Exit                   +" << endl;
+        std::cout << "+----------------------------+" << endl;
+
+
+
+        std::cout << "Please select an option" << endl;
+        cin >> adminMainOpt;
+
+        if (adminMainOpt == "1")
+        {
+            ViewIncomingOrders();
+        }
+
+        else if (adminMainOpt == "2")
+        {
+            UpdateOrderStatus();
+        }
+
+        else if (adminMainOpt == "0")
+        {
+            std::cout << "Goodbye!!" << endl;
+            exit(0);
+        }
+
+        else
+        {
+            std::cout << "Invalid Input!" << endl;
+        }
+    }
+
+
 }
 
 //------------------------------------------------------------------//
@@ -591,6 +678,11 @@ void mainMenu() {
             std::cout << "Goodbye! It was a pleasure serving you!" << endl;
             updateMember(loggedInMember);
             exit(0);
+        }
+
+        else if (mainOpt == "5")
+        {
+
         }
 
         else
