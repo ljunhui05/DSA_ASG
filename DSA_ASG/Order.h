@@ -12,23 +12,18 @@ private:
 	int OrderID;
 	Member MemberDetails;
 	List<Food> FoodList;
-	string OrderStatus;
 	double OrderTotal;
 public:
-	/*enum class OrderStatus {
-		Pending,
-		Prepared,
-		Delivered,
-		Cancelled
-	};*/
 	Order();
 	~Order();
-	Order(Member MemberDetails, List<Food> FoodList, int OrderQueueLen, double OrderTotal);
+	string OrderStatus;
+	Order(Member MemberDetails, List<Food> FoodList, int OrderQueueLen, double OrderTotal, string OrderStatus);
 	void displayOrderDetails();
 	Member getMemberDetails();
-	//void setStatus(OrderStatus newStatus);
-	//OrderStatus getStatus() const;
+	void setStatus(string OrderStatus);
+	string getStatus() ;
 	int getOrderID();
-	//const Member& getCustomerDetails() const;
-	//static string getOrderStatusString(OrderStatus status);
+	string getOrderStatusString();
+	const Member& getCustomerDetails() ;
+	static string getOrderStatusString(string OrderStatus );
 };

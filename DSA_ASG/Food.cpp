@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 #include "Food.h"
+#include "Order.h"
 
 //Lim JunHui (S10242387K) 
 //Description: Default constructor of Food 
@@ -80,3 +81,21 @@ void Food::printFoodDetails()
 	cout << " Quantity:" << Quantity << endl;
 }
 
+// Function to perform a case-insensitive search for a substring in a given string
+bool containsSubstring( string& str,  string& substring) {
+	return str.find(substring) != string::npos;
+}
+
+// Function to search food items based on keyword(s) and category
+void searchFoodItems(List<Food> FoodList, string& keyword, string& category) {
+	bool searchResults;
+
+	for (List<Food> FoodList) {
+		if (containsSubstring(food.getName(), keyword) &&
+			(category.empty() || food.getCategory() == category)) {
+			searchResults.push_back(food);
+		}
+	}
+
+	return searchResults;
+}
