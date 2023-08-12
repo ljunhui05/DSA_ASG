@@ -155,7 +155,7 @@ void initData()
 //------------------------------------------------------------------//
 void makeOrder() 
 {
-    int makeOrderOpt = -1;
+    string makeOrderOpt = "";
     int quantityOpt = 0;
     double orderCost = 0;
     bool makeOrderConfirm = true;
@@ -172,21 +172,25 @@ void makeOrder()
         std::cout << "" << endl;
         std::cout << "Please select an option:" << endl;
         cin >> makeOrderOpt;
-        if (foodMenu.checkFoodExist(makeOrderOpt) == true)
+        if (foodMenu.checkFoodExist(stoi(makeOrderOpt)) == true)
         {
             std::cout << "What is the quantity you want?" << endl;
-            cin >> quantityOpt;
+            while (!(cin >> quantityOpt)) {
+                cout << "Invalid Input! Try again:" << endl;
+                cin.clear();
+                std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
 
-            Food newFood(foodMenu.get(makeOrderOpt).getID(), foodMenu.get(makeOrderOpt).getName(),
-                foodMenu.get(makeOrderOpt).getCategory(), foodMenu.get(makeOrderOpt).getRestaurant(),
-                foodMenu.get(makeOrderOpt).getPrice(), quantityOpt);
+            Food newFood(foodMenu.get(stoi(makeOrderOpt)).getID(), foodMenu.get(stoi(makeOrderOpt)).getName(),
+                foodMenu.get(stoi(makeOrderOpt)).getCategory(), foodMenu.get(stoi(makeOrderOpt)).getRestaurant(),
+                foodMenu.get(stoi(makeOrderOpt)).getPrice(), quantityOpt);
 
             orderFoodList.add(newFood);
 
 
         }
 
-        else if (makeOrderOpt == 0)
+        else if (makeOrderOpt == "0")
         {
             makeOrderConfirm = false;
         }
@@ -213,7 +217,11 @@ void makeOrder()
             {
                 std::cout << "You currently have: " << loggedInMember.getPoints() << " Points" << endl;
                 std::cout << "How many would you like to claim?" << endl;
-                std::cin >> pointsClaim;
+                while (!(std::cin >> pointsClaim)) {
+                    cout << "Invalid Input! Try again:" << endl;
+                    cin.clear();
+                    std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                }
                 
                 if (pointsClaim > loggedInMember.getPoints() || pointsClaim < 0 || pointsClaim > orderCost) {
                     cout << "Please enter a valid input" << endl;
@@ -305,7 +313,11 @@ void cancelOrder()
             std::cout << "+----------------------------+" << endl;
         }
         std::cout << "Please select enter the OrderID of the order you would like to cancel: " << endl;
-        cin >> cancelOrderOpt;
+        while (!(std::cin >> cancelOrderOpt)) {
+            std::cout << "Invalid Input! Try again:" << endl;
+            std::cin.clear();
+            std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
         for (int j = 0; j < orderQueue.getLength(); j++)  
         {
             Order orders;
@@ -344,7 +356,7 @@ void cancelOrder()
 
 void manageMemberAccount() {
 
-    int manageMemberAccountOpt = -1; 
+    string manageMemberAccountOpt = "";
     cout << "+--------------------------------------+" << endl;
     cout << "+         Your Account Details         +" << endl;
     cout << "+--------------------------------------+" << endl;
@@ -355,26 +367,36 @@ void manageMemberAccount() {
     cout << "+--------------------------------------+" << endl;
 
     cout << "" << endl;
-    cout << "Short on money? Enter 1 to top up!" << endl;
-    cout << "Enter 0 to return to the main menu" << endl;
-    cin >> manageMemberAccountOpt;
-    if (manageMemberAccountOpt == 1) {
-        double topUpAmt;
-        cout << "Enter the amount you would like to top up: " << endl;
-        cin >> topUpAmt; 
-        loggedInMember.AddMoney(topUpAmt);
-        cout << "Successfully topped up!" << endl;
-        cout << "Your new balance is:$" << loggedInMember.getMoney() << endl;
+
+    while (true) {
+        std::cout << "Short on money? Enter 1 to top up!" << endl;
+        std::cout << "Enter 0 to return to the main menu" << endl;
+        std::cin >> manageMemberAccountOpt;
+
+        if (manageMemberAccountOpt == "1") {
+            double topUpAmt;
+            cout << "Enter the amount you would like to top up: " << endl;
+            while (!(std::cin >> topUpAmt)) {
+                std::cout << "Invalid Input! Try again:" << endl;
+                std::cin.clear();
+                std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
+            loggedInMember.AddMoney(topUpAmt);
+            std::cout << "Successfully topped up!" << endl;
+            std::cout << "Your new balance is:$" << loggedInMember.getMoney() << endl;
+            return;
+        }
+
+        else if (manageMemberAccountOpt == "0")
+        {
+            return;
+        }
+
+        else {
+            cout << "Please enter a valid input!" << endl;
+        }
     }
 
-    else if (manageMemberAccountOpt == 0) 
-    {
-        return;
-    }
-
-    else {
-        cout << "Please enter a valid input!" << endl; 
-    }
 }
 
 //------------------------------------------------------------------//
@@ -556,7 +578,12 @@ void registerMember() {
     cin >> memberPassword;
 
     std::cout << "Please enter how much money you would like to add to your account:" << endl;
-    cin >> memberMoney;
+    while (!(std::cin >> memberMoney)) {
+        std::cout << "Invalid Input! Try again:" << endl;
+        std::cin.clear();
+        std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
 
     Member newMember(memberHashTable.getLength(), memberUsername, memberPassword, memberMoney, 0);
 
@@ -610,25 +637,29 @@ void memberLogin() {
 
     else
     {
-        int loginOpt = 3;
+        string loginOpt = "";
         std::cout << "Invalid Login Credentials!" << endl;
-        std::cout << "Don't have an account?" << endl;
-        std::cout << "Enter 1 to register an account. Enter 0 to return to the Login menu." << endl;
-        cin >> loginOpt;
+        while (true) {
+            
+            std::cout << "Don't have an account?" << endl;
+            std::cout << "Enter 1 to register an account. Enter 0 to return to the Login menu." << endl;
+            cin >> loginOpt;
 
-        if (loginOpt == 1)
-        {
-            registerMember();
+            if (loginOpt == "1")
+            {
+                registerMember();
+            }
+
+            else if (loginOpt == "0")
+            {
+                memberLogin();
+            }
+
+            else {
+                std::cout << "Invalid input!" << endl;
+            }
         }
 
-        else if(loginOpt == 0)
-        {
-            memberLogin();
-        }
-
-        else {
-            std::cout << "Invalid input!" << endl;
-        }
     }
 
 }
