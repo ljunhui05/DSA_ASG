@@ -423,7 +423,8 @@ void memberMainMenu() {
         std::cout << "+    [1] Make an Order       +" << endl;
         std::cout << "+    [2] Cancel an Order     +" << endl;
         std::cout << "+    [3] Manage Account      +" << endl;
-        std::cout << "+    [4] Exit                +" << endl;
+        std::cout << "+    [4] Exit App            +" << endl;
+        std::cout << "+    [5] Log Out             +" << endl;
         std::cout << "+----------------------------+" << endl;
 
 
@@ -453,6 +454,12 @@ void memberMainMenu() {
             exit(0);
         }
 
+        else if (memberMainOpt == "5")
+        {
+            std::cout << "Goodbye! It was a pleasure serving you!" << endl;
+            return;
+        }
+
         else
         {
             std::cout << "Invalid Input!" << endl;
@@ -461,91 +468,85 @@ void memberMainMenu() {
 
 
 }
-/*
-void printAdminLoginHeader() {
-    std::cout << "+---------------------------------+" << endl;
-    std::cout << "+         Login as Admin          +" << endl;
-    std::cout << "+---------------------------------+" << endl;
-    std::cout << "" << endl;
+
+void ViewIncomingOrders() {
+    std::cout << "+----------------------------+" << endl;
+    std::cout << "+    Incoming Order List:    +" << endl;
     
-    string AdminUsername = "";
-    string AdminPassword = "";
-    std::cout << "Please enter your username: " << endl;
-    cin >> adminUsername;
+    bool hasOrders = false;
 
-    std::cout << "Please enter your password: " << endl;
-    cin >> adminPassword;
-
-    if (memberHashTable.checkMemberExist(memberUsername) && memberHashTable.checkPass(memberUsername, memberPassword) == true)
-    {
-        loggedInMember = memberHashTable.get(memberUsername);
-        std::cout << "Successful Login!" << endl;
-        memberMainMenu();
-    }
-
-    else
-    {
-        int loginOpt = 3;
-        std::cout << "Invalid Login Credentials!" << endl;
-        std::cout << "Don't have an account?" << endl;
-        std::cout << "Enter 1 to register an account. Enter 0 to return to the Login menu." << endl;
-        cin >> loginOpt;
-
-        if (loginOpt == 1)
-        {
-            registerMember();
-        }
-
-        else if (loginOpt == 0)
-        {
-            memberLogin();
-        }
-
-        else {
-            std::cout << "Invalid input!" << endl;
-        }
-    }
-
-}*/
-
-void ViewIncomingOrders(Queue& orderQueue ) {
-    Queue::Node* current = orderQueue.getFront();
+    Queue::Node* current = orderQueue.getFrontNode();
     while (current != nullptr) {
         OrderItem order = current->item;
-            if (order.getStatus() == "Pending") {
+        if (order.getStatus() == "Pending") {
             // Display order details (e.g., order ID, customer name, items, etc.)
             std::cout << "Order ID: " << order.getOrderID() << endl;
-            std::cout << "Customer Name: " << order.getCustomerDetails() << endl;
-            std::cout << "Order Status: " << order.getOrderStatusString() << endl;
-            // Display other order details if needed
-            cout << "-----------------------" << endl;
+            std::cout << "Order Status: " << "Pending" << endl;
+            //food 
+                for (int i = 0; i < order.FoodList.getLength(); i++) {
+                    Food food = order.FoodList.get(i);
+                    std::cout << "Food Name: " << food.getName() << endl;
+                    std::cout << "Category: " << food.getCategory() << endl;
+                }
+            
+            std::cout << "+----------------------------+" << endl;
+            std::cout << "" << endl;
         }
             current = current->next;
+            hasOrders = true;
     }
+    
+    if (!hasOrders) {
+        std::cout << "+    No incoming orders.     +" << endl;
+        std::cout << "" << endl;
+    }
+    
 }
 
-void UpdateOrderStatus(vector<Order>& orders, int orderId, Order::OrderStatus newStatus)
+void UpdateOrderStatus(Queue& orderQueue)
 {
-    for (Order& order : orders) {
-        if (order.getOrderId() == orderId) {
+    // Prompt the admin to enter the order ID to edit
+    int orderIdToEdit;
+    std::cout << "+----------------------------+" << endl;
+    std::cout << "Enter the Order ID to edit: ";
+    std::cin >> orderIdToEdit;
+
+    Queue::Node* current = orderQueue.getFrontNode();
+    while (current != nullptr) {
+        OrderItem& order = current->item;
+        if (order.getOrderID() == orderIdToEdit) {
+            string newStatus;
+            cout << "Enter the new status for Order ID " << orderIdToEdit << ": ";
+            cin >> newStatus;
             order.setStatus(newStatus);
-            return;
+            //return;
         }
     }
     // Handle case when the specified order ID is not found
+    std::cout << "Order ID " << orderIdToEdit << " not found." << endl;
 }
 
-void ViewOrderCustoInfo(const vector<Order>& orders, int orderId)
+void ViewOrderCustoInfo(Queue& orderQueue, Member& customer)
 {
-    for (const Order& order : orders) {
-        if (order.getOrderId() == orderId) {
-            const Member& customer = order.getCustomerDetails();
-            cout << "Order ID: " << order.getOrderId() << endl;
-            cout << "Customer Name: " << customer.getName() << endl;
-            cout << "Order Status: " << Order::getOrderStatusString(order.getStatus()) << endl;
+    int orderId;
+    std::cout << "+----------------------------+" << endl;
+    cout << "Enter the Order ID: ";
+    cin >> orderId;
+    Queue::Node* current = orderQueue.getFrontNode();
+    while (current != nullptr) {
+        OrderItem order = current->item;
+        if (order.getOrderID() == orderId) {
+            //const Member& customer = order.getCustomerDetails();
+            std::cout << "+----------------------------+" << endl;
+            std::cout << "+Customer Info:+" << endl;
+            std::cout << "" << endl;
+            std::cout << "Order ID: " << order.getOrderID() << endl;
+            std::cout << "Customer Name: " << customer.getName() << endl;
+            std::cout << "Order Status: " << order.getOrderStatusString(order.getStatus()) << endl;
             // Display other customer information if available
             return; // Exit the loop after finding the order
         }
+        current = current->next;
     }
 }
 
@@ -556,13 +557,15 @@ void adminMainMenu() {
     {
 
         std::cout << "+----------------------------+" << endl;
-        std::cout << "         Hello                "  << endl;
+        std::cout << "            Hello             "  << endl;
         std::cout << "+ What would you like to do? +" << endl;
         std::cout << "+----------------------------+" << endl;
         std::cout << "" << endl;
         std::cout << "+----------------------------+" << endl;
-        std::cout << "+ [1] View incoming orders+"    << endl;
+        std::cout << "+ [1] View incoming orders   +" << endl;
         std::cout << "+ [2] Update status of orders+" << endl;
+        std::cout << "+ [3] View customer info     +" << endl;
+        std::cout << "+ [4] Log Out                +" << endl;
         std::cout << "+ [0] Exit                   +" << endl;
         std::cout << "+----------------------------+" << endl;
 
@@ -570,15 +573,30 @@ void adminMainMenu() {
 
         std::cout << "Please select an option" << endl;
         cin >> adminMainOpt;
-
+        Queue orderQueue;
+        Order order;
+        Member customer;
         if (adminMainOpt == "1")
         {
-            //ViewIncomingOrders();
+
+            ViewIncomingOrders();
         }
 
         else if (adminMainOpt == "2")
         {
-            //UpdateOrderStatus();
+
+            UpdateOrderStatus(orderQueue);
+        }
+
+        else if (adminMainOpt == "3")
+        {
+            ViewOrderCustoInfo(orderQueue, customer);
+        }
+
+        else if (adminMainOpt == "4")
+        {
+            std::cout << "Goodbye! It was a pleasure serving you!" << endl;
+            return;
         }
 
         else if (adminMainOpt == "0")

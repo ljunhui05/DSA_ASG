@@ -142,3 +142,8 @@ int Queue::getLength() {
 
 	return len;
 }
+
+Queue::Node* Queue::getFrontNode() 
+{
+	return frontNode;
+}
