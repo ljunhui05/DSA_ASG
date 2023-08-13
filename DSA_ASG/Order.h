@@ -11,19 +11,18 @@ class Order
 private:
 	int OrderID;
 	Member MemberDetails;
-	List<Food> FoodList;
 	double OrderTotal;
 public:
 	Order();
 	~Order();
 	string OrderStatus;
+	List<Food> FoodList;
 	Order(Member MemberDetails, List<Food> FoodList, int OrderQueueLen, double OrderTotal, string OrderStatus);
 	void displayOrderDetails();
 	Member getMemberDetails();
 	void setStatus(string OrderStatus);
 	string getStatus() ;
 	int getOrderID();
-	string getOrderStatusString();
+	string getOrderStatusString(string status);
 	const Member& getCustomerDetails() ;
-	static string getOrderStatusString(string OrderStatus );
 };

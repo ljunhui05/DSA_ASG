@@ -10,6 +10,9 @@ typedef Order OrderItem;
 class Queue
 {
 private:
+ 
+
+public:   
     struct Node
     {
         OrderItem item;	// item
@@ -22,8 +25,6 @@ private:
     Node* frontNode;	// point to the first item
     Node* backNode;	// point to the first item
 
-
-public:
     // constructor
     Queue();
 
@@ -47,4 +48,7 @@ public:
     bool isEmpty();
 
     int getLength();
+
+    Node* getFrontNode();
+
 };

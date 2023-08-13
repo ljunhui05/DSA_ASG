@@ -5,6 +5,7 @@
 #include<string>
 #include<iostream>
 #include "Order.h"
+#include "Food.h"
 using namespace std;
 
 //Lim JunHui (S10242387K)
@@ -90,12 +91,12 @@ int Order::getOrderID()
 	return OrderID; // Return the order ID
 }
 
-const Member& getCustomerDetails() 
+const Member& Order::getCustomerDetails()
 {
 	return Member::Member(); // Return the Member object representing customer details
 }
 
-string getOrderStatusString(string status)
+string Order::getOrderStatusString(string status)
 {
 	if (status == "Pending") {
 		return "Pending";
@@ -113,3 +114,4 @@ string getOrderStatusString(string status)
 		return "Unknown"; // Handle any other status strings
 	}
 }
+

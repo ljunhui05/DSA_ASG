@@ -80,22 +80,23 @@ void Food::printFoodDetails()
 	cout << "Food:" << FoodName;
 	cout << " Quantity:" << Quantity << endl;
 }
-
+/*
 // Function to perform a case-insensitive search for a substring in a given string
 bool containsSubstring( string& str,  string& substring) {
 	return str.find(substring) != string::npos;
 }
 
 // Function to search food items based on keyword(s) and category
-void searchFoodItems(List<Food> FoodList, string& keyword, string& category) {
-	bool searchResults;
+List<Food>  searchFoodItems(List<Food> FoodList, string& keyword, string& category) {
+	List<Food> searchResults;
 
-	for (List<Food> FoodList) {
+	for (int i = 0; i < FoodList.getLength(); i++) {
+		Food food = FoodList.get(i);
 		if (containsSubstring(food.getName(), keyword) &&
 			(category.empty() || food.getCategory() == category)) {
-			searchResults.push_back(food);
+			searchResults.add(food);
 		}
 	}
 
 	return searchResults;
-}
+}*/
