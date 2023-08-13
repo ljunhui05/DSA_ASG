@@ -244,7 +244,7 @@ void makeOrder()
             std::cout << "" << endl;
         }
 
-        Order newOrder(loggedInMember, orderFoodList, orderQueue.getLength(), orderCost);
+        Order newOrder(loggedInMember, orderFoodList, orderQueue.getLength(), orderCost, "Pending");
 
         orderQueue.enqueue(newOrder);
 
@@ -264,6 +264,7 @@ void makeOrder()
 
 //------------------------------------------------------------------//
 // Lim JunHui (S10242387K)                                          //
+// Input Parameters: Referenced Order object called order           //
 // This function makes use of the displayOrderDetails function in   //
 // the Order class. It formats the information of the order in a    //
 // readable form for the member                                     //
@@ -531,12 +532,12 @@ void adminMainMenu() {
 
         if (adminMainOpt == "1")
         {
-            ViewIncomingOrders();
+            //ViewIncomingOrders();
         }
 
         else if (adminMainOpt == "2")
         {
-            UpdateOrderStatus();
+            //UpdateOrderStatus();
         }
 
         else if (adminMainOpt == "0")

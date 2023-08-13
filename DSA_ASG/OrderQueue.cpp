@@ -62,10 +62,10 @@ bool Queue::dequeue() {
 }
 
 //Lim JunHui (S10242387K)
-//Input parameters: A dereferenced Order object as item
+//Input parameters: A referenced Order object as item
 //Return value: boolean value
 //Description: This function dequeues the first Order object in the Queue and returns true once it has done so.
-//This function also assigns the value of the first order object in the Queue to a dereferenced Order object
+//This function also assigns the value of the first order object in the Queue to a referenced Order object
 //called item
 bool Queue::dequeue(OrderItem& item) {
 	if (frontNode == backNode) {
@@ -84,8 +84,8 @@ bool Queue::dequeue(OrderItem& item) {
 }
 
 //Lim JunHui (S10242387K)
-//Input parameters: A dereferenced Order object as item
-//Description: This function assigns the value of the first Order object in the queue to a dereferenced 
+//Input parameters: A referenced Order object as item
+//Description: This function assigns the value of the first Order object in the queue to a referenced 
 //Order object called item 
 void Queue::getFront(OrderItem& item) {
 	if (frontNode != nullptr) {
