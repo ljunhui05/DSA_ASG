@@ -460,13 +460,13 @@ void memberMainMenu() {
 
 
 }
-
+/*
 void printAdminLoginHeader() {
     std::cout << "+---------------------------------+" << endl;
     std::cout << "+         Login as Admin          +" << endl;
     std::cout << "+---------------------------------+" << endl;
     std::cout << "" << endl;
-    /*
+    
     string AdminUsername = "";
     string AdminPassword = "";
     std::cout << "Please enter your username: " << endl;
@@ -505,6 +505,47 @@ void printAdminLoginHeader() {
         }
     }*/
 
+}
+
+void ViewIncomingOrders(Queue& orderQueue ) {
+    Queue::Node* current = orderQueue.getFront();
+    while (current != nullptr) {
+        OrderItem order = current->item;
+            if (order.getStatus() == "Pending") {
+            // Display order details (e.g., order ID, customer name, items, etc.)
+            std::cout << "Order ID: " << order.getOrderID() << endl;
+            std::cout << "Customer Name: " << order.getCustomerDetails() << endl;
+            std::cout << "Order Status: " << order.getOrderStatusString() << endl;
+            // Display other order details if needed
+            cout << "-----------------------" << endl;
+        }
+            current = current->next;
+    }
+}
+
+void UpdateOrderStatus(vector<Order>& orders, int orderId, Order::OrderStatus newStatus)
+{
+    for (Order& order : orders) {
+        if (order.getOrderId() == orderId) {
+            order.setStatus(newStatus);
+            return;
+        }
+    }
+    // Handle case when the specified order ID is not found
+}
+
+void ViewOrderCustoInfo(const vector<Order>& orders, int orderId)
+{
+    for (const Order& order : orders) {
+        if (order.getOrderId() == orderId) {
+            const Member& customer = order.getCustomerDetails();
+            cout << "Order ID: " << order.getOrderId() << endl;
+            cout << "Customer Name: " << customer.getName() << endl;
+            cout << "Order Status: " << Order::getOrderStatusString(order.getStatus()) << endl;
+            // Display other customer information if available
+            return; // Exit the loop after finding the order
+        }
+    }
 }
 
 void adminMainMenu() {
@@ -709,7 +750,7 @@ void mainMenu() {
 
         else if (mainOpt == "2")
         {
-            printAdminLoginHeader();
+            adminMainMenu();
         }
 
         else if (mainOpt == "3")
